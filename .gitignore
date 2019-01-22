@@ -1,0 +1,17 @@
+# Generated files
+*.log
+*.class
+
+# Gradle files
+.gradle
+.run-google-java-format/
+build/
+gradlew/
+
+# IntelliJ files
+*.iml
+.idea/
+out/
+
+# MacOS files
+.DS_Store
