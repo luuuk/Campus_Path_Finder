@@ -1,7 +1,7 @@
 /**
  * This is part of HW0: Environment Setup and Java Introduction for CSE 331.
  */
-package hw3.test;
+package hw3;
 import hw3.RandomHello;
 
 import org.junit.Test;

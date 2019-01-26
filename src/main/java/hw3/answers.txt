@@ -1,19 +1,32 @@
 CSE 331 Homework 3.  Answers to Written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Luke LeVasseur
 
 Problem 6.
 
 (a)
-
+    Fib threw an IllegalArgException when n<=0, which should have been n<0. Changed n<=0 to n<0.
 
 (b)
-
+    Test base case failed initially because it was being forced to test 0. No change was necessary because fixing the
+    IllegalArgException in part a also fixed the base case.
 
 (c)
-
+    There were two problems causing the inductive courses to fail. First, I changed the subtraction of the
+    two terms to addition because the Fibonacci sequence is additive. Secondly, I changed the second test from
+    n<=2 to n<2 as this was causing the value 2 to return 1 which is incorrect.
 
 Problem 7. 
 
-<replace this line with your answers>
+(A) Changed volume = volume to this.volume = volume to avoid identifier issues.
+    Had getVolume method return field volume instead of 0.
+
+(B) I think the second approach is a better option, as it keeps track of the total volume and
+    requires fewer computations from the program. It will have a shorter runtime than looping through the whole set.
+
+(C) One way you could implement getBalls in sorted order is to sort the set of balls upon insertion of each individual
+    ball. This would involve adding a loop and test in the add() method so that each individual ball is inserted at
+    the right spot. Another method would be placing all the balls in a TreeSet in the getBallsFromSmallest() method.
+    This would be slightly less efficient as it would require more space and another iteration over the original set,
+    but it is easier to read as it keeps the ugly sorting stuff out of the add() method.
