@@ -1,7 +1,7 @@
 /**
  * This is part of HW0: Environment Setup and Java Introduction for CSE 331.
  */
-package hw3.test;
+package hw3;
 import static org.junit.Assert.assertEquals;
 import hw3.HelloWorld;
 import hw3.HolaWorld;
