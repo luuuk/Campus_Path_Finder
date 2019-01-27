@@ -1,4 +1,4 @@
-// Students should not edit this file.
+  // Students should not edit this file.
 
 plugins {
   id "net.ltgt.errorprone-base" version "0.0.13"
@@ -27,13 +27,22 @@ dependencies {
   compile 'org.ajoberstar:grgit:2.3.0'
 }
 
+javadoc {
+    options.tags = [ "spec.modifies", "spec.effects", "spec.requires" ] 
+}
+
+tasks.withType(Javadoc) {
+  exclude 'hw3/**'
+  options.addStringOption('Xwerror', '-quiet')
+}
+
 ///
 /// Testing
 ///
 
 test {
-  // Comment out a line to start work on that homework.
-  exclude 'hw4/**'
+  exclude 'hw3/**'
+  // exclude 'hw4/**'
 }
 
 tasks.withType(Test) {
@@ -77,6 +86,7 @@ task validate {
 }
 validate.dependsOn clean
 validate.dependsOn build
+validate.dependsOn javadoc
 
 ///
 /// Other targets
