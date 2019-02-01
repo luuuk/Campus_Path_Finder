@@ -106,7 +106,7 @@ Problem 1.
         must be called prior to any checks on the format of the RatNum that lead to printing.
 
 (b)
-    THe changes to all these methods fail to meet the spec because they force the object to become mutable, a violation
+    The changes to all these methods fail to meet the spec because they force the object to become mutable, a violation
     of RatNum's immutable property. The lack of a @modifies tag means that RatNum should not modify any of its internal
     elements.
 
@@ -119,12 +119,28 @@ Problem 1.
 Problem 2.
 
 (a)
+    I only called checkRep() after the constructor. Because RatTerm is Immutable, there is no reason to keep checking
+    if the coeff and expt satisfy the rep inv because they cannot be changed after the constructor. There is no reason
+    to call CheckRep() at the start of the constructor because coeff and expt have yet to be set at that point.
 
 
 (b)
+    RatTerm()
+        No longer has to set expt to 0 when coeff equals 0. Becomes less complex as the statements
+        checking if coeff equals 0 and setting expt to 0 are no longer necessary.
 
+    toString()
+        Would need to change check for 0 case from the expt to the coeff. No complexity difference, simply checking
+        a different value.
 
 (c)
+    RatTerm()
+        Would need to have a separate case for when coeff equals NaN in which expt is set to 0. Becomes more complex
+        due to addition of new if statement.
+
+    Both Inv: coeff.isNaN() ==> expt = 0 and Inv: coeff.equals(RatNum.ZERO) ==> expt = 0 are relatively
+    unnecessary to the functionality of the code. Adding these invariants doesn't really provide any benefit, thus
+    I would choose to use neither to make the code simpler and easier to read.
 
 
 Problem 5.
