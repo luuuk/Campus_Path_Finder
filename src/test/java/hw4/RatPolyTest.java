@@ -5,6 +5,8 @@ import hw4.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.Timeout;
 
 /**
  * This class contains a set of test cases that can be used to test the
@@ -13,7 +15,7 @@ import org.junit.Test;
  */
 public final class RatPolyTest {
   private final double JUNIT_DOUBLE_DELTA = 0.00001;
-
+  @Rule public Timeout globalTimeout = Timeout.seconds(10);
   /**
    * checks that Java asserts are enabled, and exits if not
    */
@@ -1095,6 +1097,6 @@ public final class RatPolyTest {
 
   @Test
   public void testIntegrateNaN() {
-    assertEquals("NaN", RatPoly.valueOf("NaN").integrate(0, 1), Double.NaN, JUNIT_DOUBLE_DELTA);
+    assertEquals("NaN", Double.NaN, RatPoly.valueOf("NaN").integrate(0, 1), JUNIT_DOUBLE_DELTA);
   }
 }
