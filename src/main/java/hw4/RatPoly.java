@@ -73,7 +73,7 @@ public final class RatPoly {
    */
   public RatPoly(RatTerm rt) {
     this();
-    if(!rt.isZero()){
+    if (!rt.isZero()) {
       terms.add(rt);
     }
     checkRep();
@@ -86,7 +86,7 @@ public final class RatPoly {
    * @spec.effects Constructs a new Poly equal to "c*x^e". If c is zero, constructs
    *          a "0" polynomial.
    */
-  public RatPoly(int c, int e) {
+  public RatPoly (int c, int e) {
     this(new RatTerm(new RatNum(c),e));
   }
 
@@ -96,7 +96,7 @@ public final class RatPoly {
    * @spec.effects Constructs a new Poly using 'rt' as part of the representation.
    *          The method does not make a copy of 'rt'.
    */
-  private RatPoly(List<RatTerm> rt) {
+  private RatPoly (List<RatTerm> rt) {
     terms = rt;
     // The spec tells us that we don't need to make a copy of 'rt'
     checkRep();
@@ -124,9 +124,9 @@ public final class RatPoly {
    * @return the RatTerm of degree 'deg'. If there is no term of degree 'deg'
    *         in this poly, then returns the zero RatTerm.
    */
-  public RatTerm getTerm(int deg) {
+  public RatTerm getTerm (int deg) {
     for (RatTerm term : terms) {
-      if(term.getExpt() == deg){
+      if (term.getExpt() == deg) {
         return term;
       }
     }
@@ -171,21 +171,43 @@ public final class RatPoly {
    *          cofind(lst,newTerm.getExpt()) + newTerm.getCoeff())
    */
   private static void sortedInsert(List<RatTerm> lst, RatTerm newTerm) {
-    for(int i = 0; i < lst.size(); i++) {
-      if (lst.get(i).getExpt() == newTerm.getExpt()) {
-        newTerm = newTerm.add(lst.get(i));
-        lst.remove(i);
+    //add to end, bubble to correct spot, add to current if expts are the same
+    if (!newTerm.isZero()) {
+      lst.add(newTerm);
+    }
+    for (int i = lst.size() - 1; i > 0; i--) {
+      //bubbles newTerm to correct position
+      if (lst.get(i).getExpt() > lst.get(i - 1).getExpt()) {
+        RatTerm temp = lst.get(i);
+        lst.set(i, lst.get(i - 1));
+        lst.set(i - 1, temp);
       }
     }
-    int j = 0;
-    if(!newTerm.equals(RatTerm.ZERO)){
-      if(lst.isEmpty()){
-        lst.add(newTerm);
-      } else {
-        while (lst.get(j).getExpt() > newTerm.getExpt()){
-          j++;
+    combineSameExpts(lst);
+  }
+
+  /**
+   * Helper procedure for sortedInsert: after sorted insert has bubbled the new value to it's spot defined
+   * by it's degree, checks for other values of same degree in the list and adds them if found. If
+   * combination is 0, removes both values.
+   *
+   * @param lst The list into which newTerm should be inserted.
+   * @spec.modifies lst
+   */
+  private static void combineSameExpts(List<RatTerm> lst) {
+    for(int i = 0; i < lst.size() - 1; i++) {
+      if(lst.get(i).getExpt() == lst.get(i + 1).getExpt()) {
+        RatTerm addedTerm = lst.get(i).add(lst.get(i + 1));
+        if(addedTerm.isZero()) {
+          //if added values = 0, removes both values
+          lst.remove(i);
+          lst.remove(i + 1);
+        } else {
+          //if added values != 0, only removes one of the values
+          //and adds it to the other
+          lst.set(i, addedTerm);
+          lst.remove(i + 1);
         }
-        lst.add(j, newTerm);
       }
     }
   }
@@ -197,9 +219,7 @@ public final class RatPoly {
    *         such that r.isNaN()
    */
   public RatPoly negate() {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException("RatPoly->negate() is not yet implemented");
-    List<RatTerm> result = new ArrayList<RatTerm>();
+    List<RatTerm> result = new ArrayList<>();
     for (int i = 0; i < terms.size(); i++) {
       result.add(terms.get(i).negate());
     }
@@ -215,15 +235,15 @@ public final class RatPoly {
    *         p.isNaN(), returns some r such that r.isNaN()
    */
   public RatPoly add(RatPoly p) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException("RatPoly->add() is not yet implemented");
-    List<RatTerm> addedTerms = new ArrayList<RatTerm>();
+    List<RatTerm> addedTerms = new ArrayList<>();
     int biggerListDegree = Math.max(this.degree(), p.degree());
     for(int i = biggerListDegree; i >= 0; i--) {
+      //Iterates through every value in the bigger of the two RatPolys,
+      //combining the two values with the same exponents.
       RatTerm thisTerm = this.getTerm(i);
       RatTerm pTerm = p.getTerm(i);
       RatTerm comboTerm = thisTerm.add(pTerm);
-      if(!comboTerm.equals(RatTerm.ZERO)){
+      if(!comboTerm.equals(RatTerm.ZERO)) {
         addedTerms.add(comboTerm);
       }
     }
@@ -239,8 +259,6 @@ public final class RatPoly {
    *         p.isNaN(), returns some r such that r.isNaN()
    */
   public RatPoly sub(RatPoly p) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException("RatPoly->sub() is not yet implemented");
     return this.add(p.negate());
   }
 
@@ -253,12 +271,12 @@ public final class RatPoly {
    *         p.isNaN(), returns some r such that r.isNaN()
    */
   public RatPoly mul(RatPoly p) {
-    if(this.isNaN() || p.isNaN()){
+    if(this.isNaN() || p.isNaN()) {
       return NaN;
     }
     RatPoly result = new RatPoly();
     for(RatTerm term : terms) {
-      for(int j = 0; j <= p.degree(); j++){
+      for(int j = 0; j <= p.degree(); j++) {
         result = result.add(new RatPoly(term.mul(p.getTerm(j))));
       }
     }
@@ -295,48 +313,34 @@ public final class RatPoly {
    * division on computers.
    */
   public RatPoly div(RatPoly p) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException("RatPoly->div() is not yet implemented");
     if (p.isNaN() || p.equals(ZERO) || this.isNaN()) {
       return NaN;
     }
-    int i = 0;
     if (p.degree() == 0) {
       //if p is a constant, divide all values by coeff and return
       List<RatTerm> divByConstant = new ArrayList<>();
       for (RatTerm term : terms) {
-        divByConstant.add(new RatTerm(term.getCoeff().div(p.getTerm(0).getCoeff()), term.getExpt()));
+        divByConstant.add(new RatTerm(term.getCoeff().div(p.getTerm(0).getCoeff()),
+                term.getExpt()));
       }
       return new RatPoly(divByConstant);
     } else {
+      //if p is not a constant, follow polynomial division procedure
       List<RatTerm> quotient = new ArrayList<>();
       RatPoly remainder = this;
-      //if p is not constant, copy all terms to remainder, divide out one by one
-      while (remainder.degree() >= p.degree() && p.degree() != 0) {
-        RatTerm newTerm = remainder.getTerm(i).div(p.getTerm(i));
+      //copy all terms to remainder, divide out one by one
+      //{{Inv: quotient is the terms of p divisible by this.terms_0 ... this.terms_i-1
+      //       divided by this.terms_0 ... this.terms_i-1
+      //       and r is the terms of p not divisible by this.terms_0 ... this.terms_i-1
+      //       and the degree of remainder is not 0}}
+      while (remainder.degree() >= p.degree() && remainder.degree() != 0) {
+        RatTerm newTerm = remainder.getTerm(remainder.degree()).div(p.getTerm(p.degree()));
         quotient.add(newTerm);
         remainder = remainder.sub(p.mul(new RatPoly(newTerm)));
-        i++;
       }
       return new RatPoly(quotient);
     }
   }
-    /*    q = p / d:
-    Let the terms of p be p_0 ... p_n-1 and the terms of d be d_0 ... d_m-1.
-    Set q = 0
-    Set r = p
-    Set i = 0
-    {{Inv: q is the terms of p divisible by d_0 ... d_i-1 divided by d_0 ... d_i-1
-      and r is the terms of p not divisible by d_0 ... d_i-1}}
-    while the degree of r_i >= the degree of d_i and the degree of d_i != 0:
-    val = new poly with coef = coef r_i / coef d_i and degree = degree r_i - degree d_i
-            divisor = d * val using polynomial multiplication algorithm
-    q = q + val using polynomial addition algorithm
-    r = r - divisor using polynomial subtraction algorithm (defined earlier in my answer)
-    i = i + 1;
-    q is quotient
-    r is remainder*/
-
 
   /**
    * Return the derivative of this RatPoly.
@@ -349,11 +353,11 @@ public final class RatPoly {
    * The derivative of a polynomial is the sum of the derivative of each term.
    */
   public RatPoly differentiate() {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException("RatPoly->differentiate() is not yet implemented");
     List<RatTerm> derivatives = new ArrayList<>();
-    for(RatTerm term : terms){
-      derivatives.add(term.differentiate());
+    for(RatTerm term : terms) {
+      if (!term.differentiate().isZero()) {
+        derivatives.add(term.differentiate());
+      }
     }
     return new RatPoly(derivatives);
   }
@@ -375,17 +379,15 @@ public final class RatPoly {
    * each term plus some constant.
    */
   public RatPoly antiDifferentiate(RatNum integrationConstant) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException(
-    //    "RatPoly->antiDifferentiate() unimplemented!");
-    if(integrationConstant.isNaN() || this.isNaN()){
+    if(integrationConstant.isNaN() || this.isNaN()) {
       return NaN;
     }
     List<RatTerm> antiderivatives = new ArrayList<>();
-    for(RatTerm term : terms){
+    for(RatTerm term : terms) {
       antiderivatives.add(term.antiDifferentiate());
     }
-    if(!integrationConstant.equals(RatNum.ZERO)){
+    if(!integrationConstant.equals(RatNum.ZERO)) {
+      //if constant is nonzero add to terms
       antiderivatives.add(new RatTerm(integrationConstant, 0));
     }
     return new RatPoly(antiderivatives);
@@ -408,9 +410,6 @@ public final class RatPoly {
    *         Double.NaN.
    */
   public double integrate(double lowerBound, double upperBound) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException("RatPoly->integrate() is not yet implemented");
-    double integral = 0;
     RatPoly antiDer = this.antiDifferentiate(RatNum.ZERO);
     return antiDer.eval(upperBound)- antiDer.eval(lowerBound);
   }
@@ -424,8 +423,6 @@ public final class RatPoly {
    *         (this.isNaN() == true), return Double.NaN
    */
   public double eval(double d) {
-    // TODO: Fill in this method, then remove the RuntimeException
-    //throw new RuntimeException("RatPoly->eval() is not yet implemented");
     double result = 0;
     for (RatTerm term: terms) {
       result += term.eval(d);
@@ -570,11 +567,11 @@ public final class RatPoly {
    */
   private void checkRep() {
     assert (terms != null);
-    
+
     for (int i = 0; i < terms.size(); i++) {
         assert (!terms.get(i).getCoeff().equals(new RatNum(0))) : "zero coefficient";
         assert (terms.get(i).getExpt() >= 0) : "negative exponent";
-        
+
         if (i < terms.size() - 1)
             assert (terms.get(i + 1).getExpt() < terms.get(i).getExpt()) : "terms out of order";
     }

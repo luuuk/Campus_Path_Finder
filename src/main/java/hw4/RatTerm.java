@@ -154,7 +154,8 @@ public final class RatTerm {
    */
 
   private void checkArgs(RatTerm arg){
-    if(this.expt != arg.getExpt() && !this.isNaN() && !arg.isNaN() && !this.isZero() && !arg.isZero()){
+    if(this.expt != arg.getExpt() && !this.isNaN() && !arg.isNaN()
+            && !this.isZero() && !arg.isZero()) {
       throw new IllegalArgumentException();
     }
   }
