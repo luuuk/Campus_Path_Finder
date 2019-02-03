@@ -43,6 +43,7 @@ tasks.withType(Javadoc) {
 test {
   exclude 'hw3/**'
   // exclude 'hw4/**'
+  // exclude 'hw5/**'
 }
 
 tasks.withType(Test) {
@@ -55,11 +56,13 @@ tasks.withType(Test) {
 ///
 
 compileJava {
+    exclude 'hw3/**'
     options.encoding = 'UTF-8'
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }
 
 compileTestJava {
+    exclude 'hw3/**'
     options.encoding = 'UTF-8'
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }
