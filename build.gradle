@@ -28,7 +28,7 @@ dependencies {
 }
 
 javadoc {
-    options.tags = [ "spec.modifies", "spec.effects", "spec.requires" ] 
+    options.tags = [ "spec.modifies", "spec.effects", "spec.requires", "specfield" ] 
 }
 
 tasks.withType(Javadoc) {
