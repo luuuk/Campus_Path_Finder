@@ -1,22 +1,56 @@
 CSE 331 Homework 5.  Answers to Written questions.
 Edit this file to supply your answers.
 
-Name:  <replace this with your name>
+Name:  Luke LeVasseur
 
 Problem 1. (Written exercises)
 
 (a)
+Abstraction Function: IntQueue1 represents a list of integers with FIFO appendage and removal of new values.
+entries is a list that holds the integers in the IntQueue1.
 
+Rep Invariant: entries != null && entries points to a LinkedList<Integer> && no value in entries is null
+
+Abstraction Function: IntQueue2 represents a list of integers with FIFO appendage and removal of new values.
+entries is an array that holds the values of the queue in the range entries[front] to entries[size - 1]
+
+Rep Invariant: entries != null && front >= 0 && size >= 0
+                front - 1 <= size <= entries.length
 
 (b)
-
+       B & H
+       A & D & G
+       C & F
+       E
 
 (c)
-
+    public int solveEquations(int x, int y, int z)
+        No, an int is an primitive object and will thus be returned as a copy.
+    public String[] decode(boolean slowly)
+        Possibly, because an array of Strings is mutable and could be changed by the method. Only a factor if
+        the String[] is mentioned in the invariant and not copied in the method.
+    private Date myBirthday()
+        Possibly, because Date could be a mutable object and could be changed in the method.
+    public String toString()
+        No, because String is an immutable object.
+    public Iterator<Integer> elements()
+        Possibly, because the returned Iterator has the ability to edit the values of the stored Integers. The
+        Iterator itself could also be mentioned in the Inv and then changed without making a copy, thus exposing the
+        rep.
+    public Deck(List<Card> cards)
+        Possibly, because there is no promise as to whether or not Deck is mutable or not. If Deck is changed in
+        this constructor and not copied, the invariant may be exposed.
 
 Problem 2.  (Graph interface/operations)
-
-
+    I broke up my direct labeled multigraph ADT into 3 different classes. The first is Graph, which contains a set
+    of Node objects. Graph has the methods addNode(Node n), addEdge(Node n1, Node n2, label),
+    removeNode(String label), clearNodes(), getEdges(String nodeLabel), and getPath(Node n1, Node n2),
+    as well as an Iterator over all the Nodes in the Graph.
+    The second class I defined is Node. Node has a String representing it's data
+    and a list of Edges that it links to.
+    It's methods are addEdge(Edge e1), removeEdge(), getEdges(), and clearEdges().
+    The third class is Edge. Edge has 3 fields: to (the Node the Edge points to),
+    from (the Node the Edge came from) and label (the String holding the data for the Edge).
 
 Problem 3.  (Testing strategy)
 

@@ -323,6 +323,7 @@ public final class RatPoly {
         divByConstant.add(new RatTerm(term.getCoeff().div(p.getTerm(0).getCoeff()),
                 term.getExpt()));
       }
+      //test
       return new RatPoly(divByConstant);
     } else {
       //if p is not a constant, follow polynomial division procedure
