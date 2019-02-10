@@ -54,7 +54,14 @@ Problem 2.  (Graph interface/operations)
 
 Problem 3.  (Testing strategy)
 
+    I started testing by writing my jUnit tests for every class created (Edge, Node, and Graph). I included
+    a test for every method and constructor in each class. In each test, I made sure to check edge cases,
+    simple cases, and long cases (to optimize time consumption). It took me a while to figure out that
+    these tests were considered implementation tests and that they were to be run through the implementation
+    suite.
 
+    I then moved on to my specification tests, which seemed somewhat redundant after writing the implementation
+    tests. However, I still tested each command on simple cases and then more complex cases later in the test.
 
 Problem 4.  (Representation)
 

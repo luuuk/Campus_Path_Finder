@@ -1,0 +1,37 @@
+# This test is for the getEdges and addEdge methods
+
+# Create a new Graph, g
+Create Graph g
+
+# Add a new Node, n1 to g
+AddNode g n1
+
+# Add node n2 to g
+AddNode g n2
+
+# Add node n3 to g
+AddNode g n3
+
+# Add edge from n1 to n1
+AddEdge g n1 n1 n1ton1
+
+# Add edge from n1 to n2
+AddEdge g n1 n2 n1ton2
+
+# Add edge from n1 to n3
+AddEdge g n1 n3 n1ton3
+
+# Add edge from n2 to n3
+AddEdge g n2 n3 n2ton3
+
+# Add edge from n2 to n1
+AddEdge g n2 n1 n2ton1
+
+# List the children of n1
+ListChildren g n1
+
+# List the children of n2
+ListChildren g n2
+
+# List the children of n3
+ListChildren g n3

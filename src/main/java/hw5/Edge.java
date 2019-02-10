@@ -40,7 +40,7 @@ public class Edge {
      * @return label of this
      */
     public String getLabel(){
-
+        return null; //OUT
     }
 
     /**
@@ -51,5 +51,23 @@ public class Edge {
         assert (this.label != null) : "label == null";
         assert (this.from != null) : "from == null";
         assert (this.to != null) : "to == null";
+    }
+
+    /**
+     * Gets a copy of the Node this originates from
+     * @return a copy of from
+     */
+    public Node getOrigin(){
+        Node copy = from;
+        return copy;
+    }
+
+    /**
+     * Gets a copy of the Node this leads to
+     * @return a copy of to
+     */
+    public Node getDest(){
+        Node copy = to;
+        return copy;
     }
 }

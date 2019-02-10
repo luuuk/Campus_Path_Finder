@@ -1,0 +1,7 @@
+# This test is for the addNode method
+
+# Create a new Graph, g
+created graph g
+
+# Add Node n1 to g
+added node n1 to g

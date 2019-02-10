@@ -1,0 +1,4 @@
+# This test is for the CreateGraph method
+
+# Create a new graph, g
+CreateGraph g

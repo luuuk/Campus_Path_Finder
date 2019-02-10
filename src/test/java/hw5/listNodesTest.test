@@ -1,0 +1,16 @@
+# This test is for the getNode and addNode methods
+
+# Create a new Graph, g
+CreateGraph g
+
+# List nodes in g
+ListNodes g
+
+# Add node n1 to g
+AddNode g n1
+
+# Add node n2 to g
+AddNode g n2
+
+# List nodes in g
+ListNodes g

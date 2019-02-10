@@ -1,10 +1,7 @@
 package hw5;
 
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -78,9 +75,41 @@ public class GraphTest {
         String[] path = g.getPath(g.getNode("N4"), g.getNode("N6"));
         String[] expectedPath = {"N4" , "N5", "N6"};
         assertArrayEquals(expectedPath, path);
-        //NEED TO CHECK THAT EXCEPTIONS ARE THROWN IF NODES ARE NOT IN GRAPH
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetPathException(){
+        Graph g = pathGraph();
+        g.getPath("N3", "N4");
+    }
 
+    @Test
+    public void testIterator(){
+        Graph g = graphWithNodes();
+        Iterator i = g.getIterator();
+        Node n4 = new Node("N4");
+        assertEquals(i.next(), n4);
+    }
+
+    @Test
+    public void testGetEdges(){
+        //n4 -> n5 -> n6
+        Graph g = pathGraph();
+        assertEquals(g.getNode("N4").getEdges(), g.getEdges("N4");
+    }
+
+    /*TO DO
+    REDEFINE EQUALS
+    FINISH GET PATH
+    WEIRD FORMAT TEXT TESTS
+
+    Stuff to ask bryan abt
+
+    .expected and .test
+    redefining equals
+    running tests in intellij
+    all this wack ass terminology
+    can I leave random stuff in my classes commented out and push and not be graded on it?
+    */
 
 }

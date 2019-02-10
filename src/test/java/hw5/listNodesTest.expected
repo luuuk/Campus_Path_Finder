@@ -1,0 +1,16 @@
+# This test is for the getNode and addNode methods
+
+# Create a new Graph, g
+created Graph g
+
+# List nodes in g
+g contains:
+
+# Add node n1 to g
+added node n1 to g
+
+# Add node n2 to g
+added node n2 to g
+
+# List nodes in g
+g contains: n1 n2

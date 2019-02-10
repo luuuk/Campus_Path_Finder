@@ -1,6 +1,9 @@
 package hw5;
 
 import org.junit.*;
+
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 
@@ -53,5 +56,19 @@ public class NodeTest {
         assertFalse(n5.hasEdge("5 to 1"));
         n5.addEdge(n1, "5 to 1");
         assertTrue(n5.hasEdge("5 to 1"));
+    }
+
+    @Test
+    public void testGetEdges(){
+        n4.addEdge(n1, "4 to 1");
+        n4.addEdge(n4, "4 to 4");
+        List<Edge> list = n4.getEdges();
+        int edgeCount = 0;
+        for (Edge e: list) {
+            edgeCount++;
+            //assertEquals(e, new Edge(e.));
+            //HOW DO I TEST THAT THE EDGES IN LIST WHAT THEY SHOULD BE?!??
+        }
+        assert edgeCount == 2;
     }
 }
