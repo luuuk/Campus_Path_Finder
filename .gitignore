@@ -13,5 +13,11 @@ gradlew/
 .idea/
 out/
 
+# Generated Javadocs
+doc/
+docs/
+javadoc/
+javadocs/
+
 # MacOS files
 .DS_Store

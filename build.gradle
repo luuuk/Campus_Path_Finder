@@ -28,7 +28,7 @@ dependencies {
 }
 
 javadoc {
-    options.tags = [ "spec.modifies", "spec.effects", "spec.requires" ] 
+    options.tags = [ "spec.modifies", "spec.effects", "spec.requires", "specfield" ] 
 }
 
 tasks.withType(Javadoc) {
@@ -50,6 +50,12 @@ tasks.withType(Test) {
     enableAssertions = true
 }
 
+task copyHw5TestScripts(type: Copy) {
+  from "src/test/java/hw5"
+  include "*.test", "*.expected"
+  into "${buildDir}/classes/java/test/hw5/"
+}
+test.dependsOn copyHw5TestScripts
 
 ///
 /// Extra code quality checks
