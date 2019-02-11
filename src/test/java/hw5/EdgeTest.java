@@ -9,25 +9,35 @@ public class EdgeTest {
     private Node n2 = new Node("n2");
     private Node n3 = new Node("n3");
     private Edge e1 = new Edge(n3, n3, "3 to 3");
+    private Edge e2 = new Edge(n1, n3, "1 to 3");
+    private Edge e3 = new Edge(n3, n1, "3 to 1");
+    private Edge e4 = new Edge(n3, n3, "3 to 3");
 
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         assertTrue(n1.addEdge(n1, "1 to 1"));
         assertTrue(n1.addEdge(n2, "1 to 2"));
     }
 
     @Test
-    public void testGetLabel(){
+    public void testGetLabel() {
         assertEquals(e1.getLabel(), "3 to 3");
     }
 
     @Test
-    public void testGetOrigin(){
+    public void testGetOrigin() {
         assertEquals(e1.getOrigin(), n3);
     }
 
     @Test
-    public void testGetDest(){
+    public void testGetDest() {
         assertEquals(e1.getDest(), n3);
+    }
+
+    @Test
+    public void testEquals() {
+        assertEquals(e1, e4);
+        assertNotEquals(e1, e2);
+        assertNotEquals(e1, e3);
     }
 }

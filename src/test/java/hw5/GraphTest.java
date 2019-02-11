@@ -72,7 +72,7 @@ public class GraphTest {
     @Test
     public void testGetPath(){
         Graph g = pathGraph();
-        String[] path = g.getPath(g.getNode("N4"), g.getNode("N6"));
+        String[] path = g.getPath("N4", "N6");
         String[] expectedPath = {"N4" , "N5", "N6"};
         assertArrayEquals(expectedPath, path);
     }
@@ -95,21 +95,16 @@ public class GraphTest {
     public void testGetEdges(){
         //n4 -> n5 -> n6
         Graph g = pathGraph();
-        assertEquals(g.getNode("N4").getEdges(), g.getEdges("N4");
+        assertEquals(g.getNode("N4").getEdges(), g.getEdges("N4"));
     }
 
     /*TO DO
     REDEFINE EQUALS
     FINISH GET PATH
-    WEIRD FORMAT TEXT TESTS
 
     Stuff to ask bryan abt
 
-    .expected and .test
     redefining equals
-    running tests in intellij
-    all this wack ass terminology
-    can I leave random stuff in my classes commented out and push and not be graded on it?
     */
 
 }

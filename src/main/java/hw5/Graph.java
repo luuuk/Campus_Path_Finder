@@ -3,24 +3,20 @@ package hw5;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import org.junit.*;
-
 
 /**
  * <b>Graph</b> is a class that represents a direct labeled multigraph of Nodes and Edges
- * <p>
- * Specification Fields:
- *
- * @specified nodes : Set<Node> //set of all unique Nodes contained in the Graph
- * <p>
- * Abstract Function: Each node in a given Graph, g, is stored in the Set<Node> nodes
- *
- * Rep Inv: nodes != null
- * Each Node in nodes has a unique label
- * Every Edge for each Node in nodes points to another valid Node in nodes
  */
 public class Graph {
+    /*
+    Abstract Function: Each node in a given Graph, g, is stored in the Set<Node> nodes
 
+    Rep Inv: nodes != null
+    Each Node in nodes has a unique label
+    Every Edge for each Node in nodes points to another valid Node in nodes
+    */
+
+    //Set of all Nodes in the Graph
     private Set<Node> nodes;
 
     /**
@@ -34,9 +30,9 @@ public class Graph {
      * Adds a new Node to Nodes
      *
      * @param n the Node to be added
-     * @requires n != null
-     * @modifies this
-     * @effects adds n to nodes
+     * @spec.requires n != null
+     * @spec.modifies this
+     * @spec.effects adds n to nodes
      * @return true if n was successfully added to nodes, false if n is a duplicate
      */
     public boolean addNode(Node n) {
@@ -44,27 +40,11 @@ public class Graph {
     }
 
     /**
-     * Adds a new Edge between two Node objects in nodes
-     *
-     * @param n1 The Node the Edge will originate from
-     * @param n2 The Node the Edge will lead to
-     * @param label The label of the Edge
-     *              //REQUIRES SHOULD BE DEALT WITH BY RETURN BOOLEAN
-     * @modifies this
-     * @effects adds new Edge from n1 to n2 with label "label"
-     * @return true if the Edge was successfully created, false if n1 or n2 are not in nodes
-     */
-/*    NOT SURE IF THIS WILL BE NECESSARY LATER, LEAVING TO AVOID HAVE TO REWRITE LATER.
-    public boolean addEdge(Node n1, Node n2, String label) {
-
-    }*/
-
-    /**
      * Removes a Node from the Graph
      *
      * @param label The label of the Node to be removed
-     * @modifies this
-     * @effects removes Node with given label from nodes
+     * @spec.modifies this
+     * @spec.effects removes Node with given label from nodes
      * @return true if Node with given label was removed, false if not in nodes
      */
     public boolean removeNode(String label) {
@@ -83,8 +63,8 @@ public class Graph {
     /**
      * Removes all nodes from the Graph
      *
-     * @modifies this
-     * @effects removes all Node objects in nodes from the set
+     * @spec.modifies this
+     * @spec.effects removes all Node objects in nodes from the set
      */
     public void clearNodes() {
 
@@ -93,7 +73,7 @@ public class Graph {
     /**
      * Tests if Graph is empty
      *
-     * @returns true if Graph is empty, false if not
+     * @return true if Graph is empty, false if not
      */
     public boolean isEmpty(){
         return false; //OUT
@@ -106,7 +86,7 @@ public class Graph {
      * @param n2 Label of Node where path terminates (target Node)
      * @throws IllegalArgumentException
      *          if n1 or n2 is not found in this
-     * @returns a String[] where each entry is the label of an Edge that leads to another Edge, eventually ending
+     * @return a String[] where each entry is the label of an Edge that leads to another Edge, eventually ending
      *          at n2
      */
     public String[] getPath(String n1, String n2) {
@@ -120,7 +100,7 @@ public class Graph {
      *
      * @throws IllegalArgumentException
      *           if there is no Node in Graph with Label "nodeLabel"
-     * @return Set<Edge> of all the given Edges for the Node queried
+     * @return Set of all the given Edges for the Node queried
      */
 
     public Set<Edge> getEdges(String nodeLabel){
@@ -129,7 +109,7 @@ public class Graph {
 
     /**
      * Gets an Iterator over the set of nodes
-     * @returns an Iterator on nodes
+     * @return an Iterator on nodes
      */
     public Iterator<Node> getIterator(){
         return null; //OUT
