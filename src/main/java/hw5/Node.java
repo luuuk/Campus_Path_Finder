@@ -1,6 +1,6 @@
 package hw5;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,30 +25,38 @@ public class Node {
      * @param lab the label of the new Node
      */
     public Node(String lab){
-
+        label = lab;
+        edges = new HashSet<>();
+        checkRep();
     }
 
     /**
-     * Adds an Edge to the Node
+     * Adds an Edge to the Node with given label and destination
      *
      * @param to Node Edge will link to
      * @param label Label of new Edge
      * @spec.modifies this
-     * @spec.effects adds e1 to edges
+     * @spec.effects adds new Edge to edges
      * @return true if the Edge was added successfully, false if not (Edge is duplicate)
      */
     public boolean addEdge(Node to, String label) {
-        return false; //OUT
+        return this.edges.add(new Edge(this, to, label));
     }
 
     /**
-     * Removes an Edge specified by
+     * Removes an Edge specified by the given label from edges
      *
      * @param edgeLabel label of Edge to be removed
-     * @return true is Edge was removed successfully
+     * @return true if Edge was removed successfully, false if not in edges
      */
     public boolean removeEdge(String edgeLabel) {
-        return false; //OUT
+        for(Edge e : edges) {
+            if (e.getLabel().equals(edgeLabel)){
+                return edges.remove(e);
+            }
+        }
+        checkRep();
+        return false;
     }
 
     /**
@@ -57,18 +65,46 @@ public class Node {
      * @return a Set of all the Edges linked to this
      */
     public Set<Edge> getEdges() {
-        return null; //OUT
+        // Copy edges to preserve immutability, takes O(E) time
+        Set<Edge> edgesCopy = new HashSet<>();
+        for(Edge e : edges){
+            edgesCopy.add(e);
+        }
+        return edgesCopy;
     }
 
     /**
-     * Removes all Edges for given node
+     * Removes all Edges pointing to a given node
      *
+     * @param label label of the target Node
      * @spec.modifies this
-     * @spec.effects removes all entries from edges
+     * @spec.effects removes all entries in edges pointing to Node with given label
      * @return true if all Edges were cleared, false otherwise
      */
-    public boolean clearEdges() {
-        return false; //OUT
+    public boolean clearEdgesToNode(String label) {
+        for (Edge e : edges) {
+            if(e.getDest().getLabel().equals(label)){
+                edges.remove(e);
+            }
+        }
+        checkRep();
+        return isTouching(label);
+    }
+
+    /**
+     * Tests if this is connected to another Node with given label
+     *
+     * @param label label of Node to be checked for connection
+     * @spec.requires label != null
+     * @return true if Node is connected to the Node with given bale, false otherwise
+     */
+    public boolean isTouching(String label){
+        for(Edge e : edges){
+            if(e.getDest().getLabel().equals(label)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -77,25 +113,31 @@ public class Node {
      * @return the String label for this
      */
     public String getLabel() {
-        //return label;
-        return null; //OUT
+        return this.label;
     }
 
     /**
      * Checks if this has an Edge with the given label
      *
      * @param edgeLabel the label of the Edge to search for
-     * @return true if this has an Edge with the given label, false if not
+     * @return a reference to the Edge with the given label, null if not
      */
-    public boolean hasEdge(String edgeLabel) {
-        return false; //OUT
+    public Edge hasEdge(String edgeLabel) {
+        for (Edge e : edges) {
+            if(e.getLabel().equals(edgeLabel)){
+                return e;
+                //Is this a security issue? Am I exposing my rep?
+            }
+        }
+        return null;
     }
 
     /**
      * Checks that the rep inv holds
      */
     private void checkRep() {
-        assert (this.label != null) : "label != null";
+        assert label != null : "label == null";
+        assert edges != null : "edges == null";
     }
 
     /**
@@ -116,6 +158,7 @@ public class Node {
      */
     @Override
     public int hashCode() {
-        return label.hashCode() + edges.hashCode();
+        // Because all nodes have unique labels, label is sufficient for unique hashing
+        return label.hashCode();
     }
 }

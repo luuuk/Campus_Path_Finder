@@ -65,3 +65,20 @@ Problem 3.  (Testing strategy)
 
 Problem 4.  (Representation)
 
+    My chosen representation consists of 3 classes, Graph, Node, and Edge. Graph contains a set of Nodes, which each
+    contain their own sets of Edges. I chose this representation because when I broke down the problem,
+    Node and Edge were the simplest Objects necessary and the best way to keep track of them was in the
+    Graph itself.
+
+    Representing the Graph as a collection of Edges has speed advantages but is hard to visualize. It also
+    presents challenges in certain situations (e.g. when a Node in the Graph has no Edges, slow removal of
+    single Edges).
+
+    Representing the Graph as an adjacency matrix is a more straightforward approach logically, but requires
+    massive amounts of space in larger graphs. It also requires more time to add and remove vertices.
+
+    The representation I chose (the best option in my eyes) was an adjacency list. The distribution of
+    the ADT functions into Node, Edge, and Graph classes was by far the most easy for me to represent and
+    requires little time for addition of new Nodes and Edges.
+
+    node.GetEdges = O(E) time,

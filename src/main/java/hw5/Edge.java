@@ -33,6 +33,7 @@ public class Edge {
         to = n2;
         from = n1;
         label = lab;
+        checkRep();
     }
 
     /**
@@ -41,16 +42,7 @@ public class Edge {
      * @return label of this
      */
     public String getLabel(){
-        return null; //OUT
-    }
-
-    /**
-     * Checks that the rep inv holds
-     */
-    private void checkRep(){
-        assert (this.label != null) : "label == null";
-        assert (this.from != null) : "from == null";
-        assert (this.to != null) : "to == null";
+        return label;
     }
 
     /**
@@ -85,5 +77,14 @@ public class Edge {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Checks that the rep inv holds
+     */
+    private void checkRep(){
+        assert (this.label != null) : "label == null";
+        assert (this.from != null) : "from == null";
+        assert (this.to != null) : "to == null";
     }
 }

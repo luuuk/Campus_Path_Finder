@@ -97,14 +97,4 @@ public class GraphTest {
         Graph g = pathGraph();
         assertEquals(g.getNode("N4").getEdges(), g.getEdges("N4"));
     }
-
-    /*TO DO
-    REDEFINE EQUALS
-    FINISH GET PATH
-
-    Stuff to ask bryan abt
-
-    redefining equals
-    */
-
 }
