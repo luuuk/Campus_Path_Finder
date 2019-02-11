@@ -3,7 +3,9 @@ package hw5;
 import org.junit.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -66,9 +68,9 @@ public class NodeTest {
         List<Edge> expectedEdges = new ArrayList<>();
         expectedEdges.add(new Edge(n4, n1, "4 to 1"));
         expectedEdges.add(new Edge(n4, n4, "4 to 4"));
-        List<Edge> list = n4.getEdges();
+        Set<Edge> edgeSet = n4.getEdges();
         int edgeCount = 0;
-        for (Edge e: list) {
+        for (Edge e: edgeSet) {
             edgeCount++;
             assertEquals(e, expectedEdges.get(edgeCount));
         }
