@@ -128,7 +128,6 @@ public class Node {
             if(e.getDest().getLabel().equals(nodeLabel)) {
                 //return a reference to the Edge
                 return e;
-                //Todo: Is this a security issue? Am I exposing my rep?
             }
         }
         return null;
