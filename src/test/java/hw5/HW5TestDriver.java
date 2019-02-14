@@ -204,8 +204,12 @@ public class HW5TestDriver {
         Graph g = graphs.get(graphName);
         Node n = g.getNode(parentName);
         output.print("the children of " + parentName + " in " + graphName + " are:");
+        Set<String> edges = new TreeSet<>();
         for(Edge e : n.getEdges()) {
-            output.print(" " + e.getDest() + "(" + e.getLabel() + ")");
+            edges.add(" " + e.getDest().getLabel() + "(" + e.getLabel() + ")");
+        }
+        for(String e : edges){
+            output.print(e);
         }
         output.println();
     }

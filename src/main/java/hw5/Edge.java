@@ -85,7 +85,7 @@ public class Edge {
      */
     @Override
     public int hashCode() {
-        return label.hashCode() + from.hashCode() + to.hashCode();
+        return label.hashCode() * 3 + from.hashCode() * 5 + to.hashCode() * 7;
     }
 
     /**

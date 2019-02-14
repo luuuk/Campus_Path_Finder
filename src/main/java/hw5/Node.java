@@ -120,7 +120,7 @@ public class Node {
      * Checks if this has an Edge to a Node with the given label
      *
      * @param nodeLabel the label of the Node to search for
-     * @return a reference to the Edge with a destination Node with given label, null Node with label DNE
+     * @return a reference to the Edge with a destination Node with given label, null Node when label DNE
      */
     public Edge hasEdgeTo(String nodeLabel) {
         for (Edge e : edges) {

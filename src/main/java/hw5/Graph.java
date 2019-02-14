@@ -134,7 +134,8 @@ public class Graph {
         if(!nodes.containsKey(nodeLabel)) {
             throw new IllegalArgumentException("Node with given label not in Graph");
         }
-        return nodes.get(nodeLabel).getEdges();
+        return Collections.unmodifiableSet(nodes.get(nodeLabel).getEdges());
+        //TODO does this prevent rep exposure?
     }
 
     /**

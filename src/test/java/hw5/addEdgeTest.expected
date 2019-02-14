@@ -1,8 +1,8 @@
 # This test is for the addEdge method
 # Create a new Graph, g
-created Graph g
+created graph g
 
-# Add a new Node, n1 to g
+# Add node n1 to g
 added node n1 to g
 
 # Add node n2 to g

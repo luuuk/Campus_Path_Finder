@@ -1,7 +1,7 @@
 # This test is for the getNode and addNode methods
 
 # Create a new Graph, g
-created Graph g
+created graph g
 
 # List nodes in g
 g contains:
