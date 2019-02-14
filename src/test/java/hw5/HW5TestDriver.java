@@ -129,10 +129,8 @@ public class HW5TestDriver {
     }
 
     private void createGraph(String graphName) {
-        // Insert your code here.
-
-        // graphs.put(graphName, ___);
-        // output.println(...);
+        graphs.put(graphName, new Graph());
+        output.println("created graph " + graphName);
     }
 
     private void addNode(List<String> arguments) {
@@ -147,10 +145,9 @@ public class HW5TestDriver {
     }
 
     private void addNode(String graphName, String nodeName) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // output.println(...);
+        Graph g = graphs.get(graphName);
+        g.addNode(new Node(nodeName));
+        output.println("added node " + g.getNode(nodeName).getLabel() + " to " + graphName);
     }
 
     private void addEdge(List<String> arguments) {
@@ -168,10 +165,10 @@ public class HW5TestDriver {
 
     private void addEdge(String graphName, String parentName, String childName,
             String edgeLabel) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // output.println(...);
+        Graph g = graphs.get(graphName);
+        g.getNode(parentName).addEdge(g.getNode(childName), edgeLabel);
+        output.println("added edge " + edgeLabel + " from " + parentName + " to " + childName +
+                        " in " + graphName);
     }
 
     private void listNodes(List<String> arguments) {
@@ -184,10 +181,13 @@ public class HW5TestDriver {
     }
 
     private void listNodes(String graphName) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // output.println(...);
+        Graph g = graphs.get(graphName);
+        output.print(graphName + " contains:");
+        Set<String> nodeSet = g.getNodeSet();
+        for (String nodeName : nodeSet) {
+            output.print(" " + nodeName);
+        }
+        output.println();
     }
 
     private void listChildren(List<String> arguments) {
@@ -201,10 +201,13 @@ public class HW5TestDriver {
     }
 
     private void listChildren(String graphName, String parentName) {
-        // Insert your code here.
-
-        // ___ = graphs.get(graphName);
-        // output.println(...);
+        Graph g = graphs.get(graphName);
+        Node n = g.getNode(parentName);
+        output.print("the children of " + parentName + " in " + graphName + " are:");
+        for(Edge e : n.getEdges()) {
+            output.print(" " + e.getDest() + "(" + e.getLabel() + ")");
+        }
+        output.println();
     }
 
     /**

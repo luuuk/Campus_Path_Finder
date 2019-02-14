@@ -29,7 +29,7 @@ public class Edge {
      * @param n2 Node Edge links to
      * @param lab label of Edge
      */
-    public Edge(Node n1, Node n2, String lab){
+    public Edge(Node n1, Node n2, String lab) {
         to = n2;
         from = n1;
         label = lab;
@@ -41,7 +41,7 @@ public class Edge {
      *
      * @return label of this
      */
-    public String getLabel(){
+    public String getLabel() {
         return label;
     }
 
@@ -80,9 +80,18 @@ public class Edge {
     }
 
     /**
+     * Returns a unique HashCode for this
+     * @return a unique int that all Edges equal to this return
+     */
+    @Override
+    public int hashCode() {
+        return label.hashCode() + from.hashCode() + to.hashCode();
+    }
+
+    /**
      * Checks that the rep inv holds
      */
-    private void checkRep(){
+    private void checkRep() {
         assert (this.label != null) : "label == null";
         assert (this.from != null) : "from == null";
         assert (this.to != null) : "to == null";

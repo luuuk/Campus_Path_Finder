@@ -81,4 +81,35 @@ Problem 4.  (Representation)
     the ADT functions into Node, Edge, and Graph classes was by far the most easy for me to represent and
     requires little time for addition of new Nodes and Edges.
 
-    node.GetEdges = O(E) time,
+Part 2 changes
+
+    Added "@spec.effects sets nodes = to a new empty HashMap" to Graph Constructor tags
+          "@spec.requires label != null" to Graph getNode tags
+
+          ClearEdgesToNode() is a method for Node I realized would be helpful after submitting part one.
+          It searched for all Edges pointing to a given Node and deletes them. This is necessary when
+          deleting Nodes, as all connections to the deleted Node have to be deleted too.
+
+          isTouching() is another method for Node I realized would be helpful after submitting part one.
+          It tests if any of the Edges for a given Node lead to the Node whose label is passed as a param.
+          It is also used when deleting Nodes to test if a Node is touching the Node to be deleted.
+
+          getNodeSet() is a method for Graph I realized would be helpful after submitting part 1.
+          It returns a copy of the names of each Node in a given Graph. It is helpful when listing the names
+          of the Nodes in a given Graph.
+
+          Changed name, spec of hasEdge(String edgelabel) to hasEdgeTo(String nodeLabel). Realized it would
+          be more useful to search for Edges pointing to a given Node than to remove Edges by their labels.
+
+          Overrode hashCode() for Edge to prevent duplicate Edges on the same Node.
+
+          Changed functionality in NodeTest's testGetEdges method (because test had an off-by-1 error)
+          from:
+                edgeCount++;
+                assertEquals(expectedEdges.get(edgeCount), e);
+          to:
+                assertEquals(expectedEdges.get(edgeCount), e);
+                edgeCount++;
+
+          Changed return of pathGraph() in GraphTest from pathGraph() to graphwithEdges. That one was stupid.
+          Constructors should NOT be recursive!

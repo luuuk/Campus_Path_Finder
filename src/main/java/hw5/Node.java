@@ -24,7 +24,7 @@ public class Node {
      *
      * @param lab the label of the new Node
      */
-    public Node(String lab){
+    public Node(String lab) {
         label = lab;
         edges = new HashSet<>();
         checkRep();
@@ -51,7 +51,7 @@ public class Node {
      */
     public boolean removeEdge(String edgeLabel) {
         for(Edge e : edges) {
-            if (e.getLabel().equals(edgeLabel)){
+            if (e.getLabel().equals(edgeLabel)) {
                 return edges.remove(e);
             }
         }
@@ -65,11 +65,9 @@ public class Node {
      * @return a Set of all the Edges linked to this
      */
     public Set<Edge> getEdges() {
-        // Copy edges to preserve immutability, takes O(E) time
+        // Copy edges to prevent representation exposure
         Set<Edge> edgesCopy = new HashSet<>();
-        for(Edge e : edges){
-            edgesCopy.add(e);
-        }
+        edgesCopy.addAll(edges);
         return edgesCopy;
     }
 
@@ -82,12 +80,14 @@ public class Node {
      * @return true if all Edges were cleared, false otherwise
      */
     public boolean clearEdgesToNode(String label) {
-        for (Edge e : edges) {
-            if(e.getDest().getLabel().equals(label)){
-                edges.remove(e);
-            }
+        //Inv: this is touching Node with given label
+        while(isTouching(label)) {
+            //find Edge touching target Node
+            Edge edgeToRemove = hasEdgeTo(label);
+
+            //remove Edge from edges
+            edges.remove(edgeToRemove);
         }
-        checkRep();
         return isTouching(label);
     }
 
@@ -98,9 +98,9 @@ public class Node {
      * @spec.requires label != null
      * @return true if Node is connected to the Node with given bale, false otherwise
      */
-    public boolean isTouching(String label){
-        for(Edge e : edges){
-            if(e.getDest().getLabel().equals(label)){
+    public boolean isTouching(String label) {
+        for(Edge e : edges) {
+            if(e.getDest().getLabel().equals(label)) {
                 return true;
             }
         }
@@ -117,16 +117,18 @@ public class Node {
     }
 
     /**
-     * Checks if this has an Edge with the given label
+     * Checks if this has an Edge to a Node with the given label
      *
-     * @param edgeLabel the label of the Edge to search for
-     * @return a reference to the Edge with the given label, null if not
+     * @param nodeLabel the label of the Node to search for
+     * @return a reference to the Edge with a destination Node with given label, null Node with label DNE
      */
-    public Edge hasEdge(String edgeLabel) {
+    public Edge hasEdgeTo(String nodeLabel) {
         for (Edge e : edges) {
-            if(e.getLabel().equals(edgeLabel)){
+            //if the destination of e is the desired node
+            if(e.getDest().getLabel().equals(nodeLabel)) {
+                //return a reference to the Edge
                 return e;
-                //Is this a security issue? Am I exposing my rep?
+                //Todo: Is this a security issue? Am I exposing my rep?
             }
         }
         return null;
@@ -153,7 +155,7 @@ public class Node {
     }
 
     /**
-     * Returns a HashCode for this
+     * Returns a unique HashCode for this
      * @return a unique int that all Nodes equal to this return
      */
     @Override

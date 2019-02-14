@@ -27,6 +27,18 @@ public class Graph {
     }
 
     /**
+     * Returns a list of the labels of all Nodes in this
+     * @return a Set of Strings where each String is the label of a Node in this
+     */
+    public Set<String> getNodeSet() {
+        Set<String> copyNodeNames = new HashSet<>();
+        for (String nodeLabel : nodes.keySet()) {
+            copyNodeNames.add(nodeLabel);
+        }
+        return copyNodeNames;
+    }
+
+    /**
      * Adds a new Node to nodes
      *
      * @param n the Node to be added
@@ -36,7 +48,7 @@ public class Graph {
      * @return true if n was successfully added to nodes, false if n is a duplicate Node
      */
     public boolean addNode(Node n) {
-        if(!nodes.containsKey(n.getLabel())){
+        if(!nodes.containsKey(n.getLabel())) {
             nodes.put(n.getLabel(), n);
             checkRep();
             return true;
@@ -53,9 +65,9 @@ public class Graph {
      * @return true if Node with given label was removed, false if not in nodes
      */
     public boolean removeNode(String label) {
-        if(nodes.containsKey(label)){
-            nodes.remove(nodes.get(label));
-            for(String key : nodes.keySet()){
+        if(nodes.containsKey(label)) {
+            nodes.remove(label);
+            for(String key : nodes.keySet()) {
                 if(nodes.get(key).isTouching(label)){
                     nodes.get(key).clearEdgesToNode(label);
                 }
@@ -71,7 +83,7 @@ public class Graph {
      * @spec.requires label != null
      * @return the desired Node with label "label", null if Node is not in Graph
      */
-    public Node getNode(String label){
+    public Node getNode(String label) {
         return nodes.get(label);
     }
 
@@ -90,7 +102,7 @@ public class Graph {
      *
      * @return true if Graph is empty, false if not
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return nodes.isEmpty();
     }
 
@@ -118,8 +130,8 @@ public class Graph {
      * @return Set of all the given Edges for the Node queried
      */
 
-    public Set<Edge> getEdges(String nodeLabel){
-        if(!nodes.containsKey(nodeLabel)){
+    public Set<Edge> getEdges(String nodeLabel) {
+        if(!nodes.containsKey(nodeLabel)) {
             throw new IllegalArgumentException("Node with given label not in Graph");
         }
         return nodes.get(nodeLabel).getEdges();
@@ -130,7 +142,7 @@ public class Graph {
      *
      * @return an Iterator on nodes
      */
-    public Iterator<Node> getIterator(){
+    public Iterator<Node> getIterator() {
         return nodes.values().iterator();
     }
 
@@ -141,11 +153,11 @@ public class Graph {
      *  Each Node in nodes (Key in keySet) has a unique label
      *  Every Edge for each Node in nodes points to another valid Node in nodes
      */
-    private void checkRep(){
+    private void checkRep() {
         assert (this.nodes != null) : "Nodes == null";
-        for(String key : nodes.keySet()){
+        for(String key : nodes.keySet()) {
             assert key.equals(nodes.get(key).getLabel()) : "Key is not label of Node";
-            for(Edge e : nodes.get(key).getEdges()){
+            for(Edge e : nodes.get(key).getEdges()) {
                 assert nodes.containsValue(e.getDest()) : "Edge points to Node not in Graph";
             }
         }
