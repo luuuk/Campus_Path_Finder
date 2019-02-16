@@ -42,13 +42,18 @@ tasks.withType(Javadoc) {
 
 test {
   exclude 'hw3/**'
-  // exclude 'hw4/**'
+  exclude 'hw4/**'
   // exclude 'hw5/**'
+  // exclude 'hw6/**'
 }
 
 tasks.withType(Test) {
     enableAssertions = true
 }
+
+///
+/// Copying files for ScriptTests
+///
 
 task copyHw5TestScripts(type: Copy) {
   from "src/test/java/hw5"
@@ -57,18 +62,27 @@ task copyHw5TestScripts(type: Copy) {
 }
 test.dependsOn copyHw5TestScripts
 
+task copyHw6TestScripts(type: Copy) {
+  from "src/test/java/hw6"
+  include "*.test", "*.expected"
+  into "${buildDir}/classes/java/test/hw6/"
+}
+test.dependsOn copyHw6TestScripts
+
 ///
 /// Extra code quality checks
 ///
 
 compileJava {
     exclude 'hw3/**'
+    exclude 'hw4/**'
     options.encoding = 'UTF-8'
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }
 
 compileTestJava {
     exclude 'hw3/**'
+    exclude 'hw4/**'
     options.encoding = 'UTF-8'
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }
@@ -112,6 +126,12 @@ task cleanByRenaming {
       f.renameTo(new File(destinationDir, f.getName()))
     }
   }
+}
+
+task runMarvel(type:JavaExec) {
+   main = "hw6/MarvelPaths"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath
 }
 
 
