@@ -117,7 +117,7 @@ public class Graph {
      *          at n2
      */
     public String[] getPath(String n1, String n2) {
-        //Todo : write this noise
+        //Todo : write this method
         throw new IllegalArgumentException("Method not implemented, but I'm gonna do it later ¯\\_(ツ)_/¯ ");
     }
 
@@ -135,7 +135,6 @@ public class Graph {
             throw new IllegalArgumentException("Node with given label not in Graph");
         }
         return Collections.unmodifiableSet(nodes.get(nodeLabel).getEdges());
-        //TODO does this prevent rep exposure?
     }
 
     /**
