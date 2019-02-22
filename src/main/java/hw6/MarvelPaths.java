@@ -22,6 +22,7 @@ public class MarvelPaths {
      * the HW6 description for details on this construction.)
      *
      * @param fileName The simple file name of the .TSV file to read from.
+     * @param g        The graph to be filled in with the information from the tsv file
      * @return A graph object constructed from the contents of given file.
      * @throws MalformedDataException if the file cannot be parsed.
      */
@@ -29,7 +30,7 @@ public class MarvelPaths {
             throws MalformedDataException {
         Set<String> characters = new HashSet<>();
         Map<String, List<String>> books = new HashMap<>();
-        MarvelParser.parseData(fileName, characters, books); //RIGHT HERE THIS IS WHERE ITS FUCKED UP
+        MarvelParser.parseData(fileName, characters, books);
         for (String character : characters) {
             g.addNode(new Node(character));
         }

@@ -2,7 +2,6 @@ package hw6;
 
 import hw5.Edge;
 import hw5.Graph;
-import hw5.HW5TestDriver;
 import hw5.Node;
 
 import java.io.*;
@@ -240,7 +239,6 @@ public class HW6TestDriver {
         graphs.put(graphName, g);
         Set<String> chars = new HashSet<>();
         Map<String, List<String>> books = new HashMap<>();
-        //MarvelParser.parseData("src/hw6/resources/data/" + fileName, chars, books);
         MarvelPaths.buildGraph(g, "src/main/resources/hw6/data/" + fileName);
         output.println("loaded graph " + graphName);
     }

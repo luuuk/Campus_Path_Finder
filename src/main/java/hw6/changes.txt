@@ -8,6 +8,8 @@ those changes were made below.  (See the HW6 assignment for details.)
 
 Eliminated method stub for getPath() in Graph, as it is implemented in MarvelPaths class instead
 
-Changed return type of Node.getEdges() from Set to List for easier sorting in BFS algorithm
+Changed return type of Node.getEdges() from Set to List for easier sorting in BFS algorithm, then changed it back because it was
+unnecessary
 
-Implemented Comparable interface for Edges for sorting ability in MarvelPaths TreeSet
+Implemented Comparable interface for Edges for sorting ability in MarvelPaths TreeSet, then un-implemented it and implemented
+a comparator for Edges for sorting purposes (because Edges are not actually comparable)
