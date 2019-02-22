@@ -1,0 +1,6 @@
+# This test tests the case of no path between two nodes
+
+loaded graph test
+
+path from a to d:
+no path found

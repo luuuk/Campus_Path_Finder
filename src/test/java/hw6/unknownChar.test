@@ -1,0 +1,9 @@
+# This test finds a path from a node to a node not in graph
+
+LoadGraph test test.tsv
+
+FindPath test a g
+
+FindPath test r a
+
+FindPath test q w

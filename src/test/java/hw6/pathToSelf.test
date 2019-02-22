@@ -1,0 +1,5 @@
+# This test finds a path from a node to itself
+
+LoadGraph test test.tsv
+
+FindPath test a a

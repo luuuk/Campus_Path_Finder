@@ -1,0 +1,9 @@
+# This test is for graphs with a relatively long path
+
+loaded graph test
+
+the children of a in test are: b(2) b(3)
+
+path from a to c:
+a to b via 2
+b to c via 4

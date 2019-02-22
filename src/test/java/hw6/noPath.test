@@ -1,0 +1,5 @@
+# This test tests the case of no path between two nodes
+
+LoadGraph test test.tsv
+
+FindPath test a d

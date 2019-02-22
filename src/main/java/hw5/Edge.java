@@ -1,5 +1,7 @@
 package hw5;
 
+import java.util.Comparator;
+
 /**
  * <b>Edge</b> is a class that represents a connection between two Nodes in a distinct labeled multigraph
  */
@@ -25,8 +27,8 @@ public class Edge {
     /**
      * Creates new Edge linking Node n1 and Node n2 with given label
      *
-     * @param n1 Node Edge comes from
-     * @param n2 Node Edge links to
+     * @param n1  Node Edge comes from
+     * @param n2  Node Edge links to
      * @param lab label of Edge
      */
     public Edge(Node n1, Node n2, String lab) {
@@ -47,6 +49,7 @@ public class Edge {
 
     /**
      * Gets a copy of the Node this originates from
+     *
      * @return a copy of from
      */
     public Node getOrigin() {
@@ -56,6 +59,7 @@ public class Edge {
 
     /**
      * Gets a copy of the Node this leads to
+     *
      * @return a copy of to
      */
     public Node getDest() {
@@ -72,7 +76,7 @@ public class Edge {
      */
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Edge && ((Edge) o).getLabel().equals(this.label)
+        if (o instanceof Edge && ((Edge) o).getLabel().equals(this.label)
                 && ((Edge) o).getDest().equals(this.to) && ((Edge) o).getOrigin().equals(this.from)) {
             return true;
         }
@@ -81,6 +85,7 @@ public class Edge {
 
     /**
      * Returns a unique HashCode for this
+     *
      * @return a unique int that all Edges equal to this return
      */
     @Override
