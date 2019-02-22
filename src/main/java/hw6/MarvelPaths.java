@@ -23,7 +23,8 @@ public class MarvelPaths {
      *
      * @param fileName The simple file name of the .TSV file to read from.
      * @param g        The graph to be filled in with the information from the tsv file
-     * @return A graph object constructed from the contents of given file.
+     * @spec.modifies g
+     * @spec.effects populates g with data from MarvelParser
      * @throws MalformedDataException if the file cannot be parsed.
      */
     public static void buildGraph(Graph g, String fileName)
