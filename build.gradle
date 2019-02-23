@@ -36,6 +36,16 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xwerror', '-quiet')
 }
 
+compileJava {
+  exclude 'hw3/**'
+  exclude 'hw4/**'
+}
+
+compileTestJava {
+  exclude 'hw3/**'
+  exclude 'hw4/**'
+}
+
 ///
 /// Testing
 ///
@@ -45,6 +55,7 @@ test {
   exclude 'hw4/**'
   // exclude 'hw5/**'
   // exclude 'hw6/**'
+  // exclude 'hw7/**'
 }
 
 tasks.withType(Test) {
@@ -68,6 +79,13 @@ task copyHw6TestScripts(type: Copy) {
   into "${buildDir}/classes/java/test/hw6/"
 }
 test.dependsOn copyHw6TestScripts
+
+task copyHw7TestScripts(type: Copy) {
+  from "src/test/java/hw7"
+  include "*.test", "*.expected"
+  into "${buildDir}/classes/java/test/hw7/"
+}
+test.dependsOn copyHw7TestScripts
 
 ///
 /// Extra code quality checks
@@ -134,6 +152,11 @@ task runMarvel(type:JavaExec) {
    classpath = sourceSets.main.runtimeClasspath
 }
 
+task runMarvel2(type:JavaExec) {
+   main = "hw7/MarvelPaths2"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath
+}
 
 ///
 /// Targets for course staff use
