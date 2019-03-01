@@ -101,7 +101,7 @@ public class Path<NL extends Comparable<NL>, EL extends Comparable<EL>> {
      * @param next       Node to be added to this
      * @param nextWeight Weight of edge to next Node
      * @return a new path crated by adding next to this
-     * @spec.requires next != null && nextWeight >= 0;
+     * @spec.requires next != null && nextWeight >= 0
      */
     public Path<NL, EL> addNewNode(Node<NL, EL> next, Double nextWeight) {
         List<Node<NL, EL>> currentPath = this.getPath();
