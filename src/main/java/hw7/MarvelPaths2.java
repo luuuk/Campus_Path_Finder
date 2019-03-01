@@ -1,10 +1,14 @@
-package hw6;
+package hw7;
 
-import java.io.*;
-import java.util.*;
-
-import hw5.*;
+import hw5.Edge;
+import hw5.Graph;
+import hw5.Node;
+import hw6.MarvelParser;
 import hw6.MarvelParser.MalformedDataException;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
 
 /**
  * Program that allows users to find the shortest path between characters in
@@ -15,25 +19,26 @@ import hw6.MarvelParser.MalformedDataException;
  *
  * <p>This is not an ADT.</p>
  */
-public class MarvelPaths {
+public class MarvelPaths2 {
 
     /**
-     * Returns a graph object describing the contents of the given file. (See
+     * Fills in a graph object describing the contents of the given file. (See
      * the HW6 description for details on this construction.)
      *
-     * @param g        The graph to be filled in with the information from the tsv file
      * @param fileName The simple file name of the .TSV file to read from.
+     * @param g        The graph to be filled in with the information from the tsv file
      * @throws MalformedDataException if the file cannot be parsed.
      * @spec.modifies g
      * @spec.effects populates g with data from MarvelParser
      */
-    public static void buildGraph(Graph<String, String> g, String fileName)
+    public static void buildGraph(Graph<String, Double> g, String fileName)
             throws MalformedDataException {
         Set<String> characters = new HashSet<>();
         Map<String, List<String>> books = new HashMap<>();
         MarvelParser.parseData(fileName, characters, books);
+        //add each new character as a Node
         for (String character : characters) {
-            g.addNode(new Node<String, String>(character));
+            g.addNode(new Node<>(character));
         }
         for (String book : books.keySet()) {
             //For every book
@@ -42,8 +47,17 @@ public class MarvelPaths {
                 for (String otherCharacter : books.get(book)) {
                     //check if other character has edge to character yet
                     if (!character.equals(otherCharacter)) {
-                        //if different characters, add a new edge with label book to new character
-                        g.getNode(character).addEdge(g.getNode(otherCharacter), book);
+                        //if there is not yet an edge between character and otherCharacter
+                        if (!g.getNode(character).isTouching(otherCharacter)) {
+                            //add edge to otherCharacter with weight 1.0
+                            g.getNode(character).addEdge(g.getNode(otherCharacter), 1.0);
+                        } else {
+                            //if the characters are already touching
+                            Edge<String, Double> e = g.getNode(character).hasEdgeTo(otherCharacter);
+                            Double weight = e.getLabel();
+                            g.getNode(character).removeEdge(otherCharacter);
+                            g.getNode(character).addEdge(g.getNode(otherCharacter), Math.pow(Math.pow(weight, -1) + 1, -1));
+                        }
                     }
                 }
             }
@@ -54,54 +68,40 @@ public class MarvelPaths {
      * Returns the shortest path from the given source character to the given
      * destination character via edges in the given graph.
      *
-     * @param graph The graph in which to search for a path.
-     * @param src   Name of the node in the grahp where the path must start.
-     * @param dest  Name of the node in the graph where the path must end.
+     * @param graph  The graph in which to search for a path.
+     * @param origin Name of the node in the grahp where the path must start.
+     * @param dest   Name of the node in the graph where the path must end.
      * @return Returns the shortest (and lexicographically least) path from
      * the node with name matching src to the one with name matching dest.
      * @spec.requires graph is not null, src and dest name nodes in graph
      */
-    public static List<String> shortestPath(
-            Graph<String, String> graph, String src, String dest) {
+    public static Path<String, Double> shortestPath(
+            Graph<String, Double> graph, String origin, String dest) {
 
-        Queue<Node<String, String>> nextNodes = new LinkedList<>();
-        Map<Node<String, String>, List<String>> paths = new HashMap<>();
-        nextNodes.add(graph.getNode(src));
-        Node<String, String> destNode = graph.getNode(dest);
-        List<String> initialList = new ArrayList<>();
-        paths.put(graph.getNode(src), initialList);
-        //body
-        while (!nextNodes.isEmpty()) {
-            Node<String, String> currentNode = nextNodes.remove();
-            if (currentNode.equals(destNode)) {
-                return paths.get(currentNode);
+        Queue<Path<String, Double>> active = new PriorityQueue<>(new Comparator<>() {
+            @Override
+            public int compare(Path<String, Double> o1, Path<String, Double> o2) {
+                return o1.getWeight().compareTo(o2.getWeight());
             }
-            Set<Edge<String, String>> currentEdges = currentNode.getEdges();
-            List<Edge<String, String>> sortedCurrentEdges = new ArrayList<>(currentEdges);
-            Collections.sort(sortedCurrentEdges, new Comparator<>() {
-                @Override
-                public int compare(Edge<String, String> o1, Edge<String, String> o2) {
-                    int destComp = o1.getDest().getLabel().compareTo(
-                            o2.getDest().getLabel());
-                    if (destComp != 0) {
-                        return destComp;
-                    } else {
-                        return o1.getLabel().compareTo(o2.getLabel());
-                    }
-                }
-            });
-            for (Edge<String, String> e : sortedCurrentEdges) {
-                Node<String, String> next = e.getDest();
-                if (!paths.containsKey(next)) {
-                    //if node has not been visited
-                    List<String> currentPath = paths.get(currentNode);
-                    List<String> nextPath = new ArrayList<>(currentPath);
-                    // path format node1, book, node2, node2, book, node3...
-                    nextPath.add(currentNode.getLabel());
-                    nextPath.add(e.getLabel());
-                    nextPath.add(next.getLabel());
-                    paths.put(next, nextPath);
-                    nextNodes.add(next);
+        });
+
+        Set<Node<String, Double>> finished = new HashSet<>();
+        Node<String, Double> start = graph.getNode(origin);
+        active.add(new Path<>(start));
+        while (!active.isEmpty()) {
+            Path<String, Double> minPath = active.remove();
+            Node<String, Double> minDest = minPath.getDest();
+            if (minDest.getLabel().equals(dest)) {
+                return minPath;
+            }
+            if (finished.contains(minDest)) {
+                continue;
+            }
+            finished.add(minDest);
+            for (Edge<String, Double> e : minDest.getEdges()) {
+                if (!finished.contains(e.getDest())) {
+                    Path<String, Double> newPath = minPath.addNewNode(e.getDest(), e.getLabel());
+                    active.add(newPath);
                 }
             }
         }
@@ -123,13 +123,13 @@ public class MarvelPaths {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
         // Retrieve the name of the file to build the graph from.
-        System.out.printf("Enter the name of the graph file (something.tsv): ");
+        System.out.print("Enter the name of the graph file (something.tsv): ");
         System.out.flush();
         String fileName = in.readLine().trim();
 
         // Construct the full file name from the simple name given.
         if (fileName.indexOf('/') < 0) {
-            fileName = "src/test/resources/hw6/data/" + fileName;
+            fileName = "src/test/resources/hw7/data/" + fileName;
         } else {
             System.err.printf("Error: file name must be simple (no '/'s)\n");
             System.exit(1);
@@ -138,7 +138,7 @@ public class MarvelPaths {
         // Build the graph from the file and report the time spent to the user.
 
         long startTime = System.currentTimeMillis();
-        Graph<String, String> graph = new Graph<>();
+        Graph<String, Double> graph = new Graph<>();
         buildGraph(graph, fileName);
         long endTime = System.currentTimeMillis();
 
@@ -147,9 +147,7 @@ public class MarvelPaths {
         System.out.printf(" - %d characters\n", graph.getNodeSet().size());
         int edgeCount = 0;
         for (String nodeName : graph.getNodeSet()) {
-            for (Edge e : graph.getNode(nodeName).getEdges()) {
-                edgeCount++;
-            }
+            edgeCount += graph.getNode(nodeName).getEdges().size();
         }
         System.out.printf(" - %d pairs appeared together\n", edgeCount / 2);
         System.out.println();
@@ -176,23 +174,29 @@ public class MarvelPaths {
         // Find the shortest path.
 
         startTime = System.currentTimeMillis();
-        List<String> path = shortestPath(graph, src, dest);
+        Path<String, Double> path = shortestPath(graph, src, dest);
         endTime = System.currentTimeMillis();
 
         duration = (endTime - startTime) / 1000.;
         System.out.printf("Found shortest path in %.1f seconds\n", duration);
         System.out.println();
 
-        // Display the shortest path to the user.
+        // Display the shortest path to the user
         if (path == null) {
             System.out.printf("No path from %s to %s\n", src, dest);
         } else {
+            List<Node<String, Double>> pathList = path.getPath();
             System.out.printf("Shortest path:\n");
             System.out.printf(" from %s\n", src);
-            for (int i = 0; i < path.size(); i += 3) {
-                System.out.printf("  to  %s [in %s]\n",
-                        path.get(i + 2), path.get(i + 1));
+            for (int i = 0; i < pathList.size() - 1; i++) {
+                Node<String, Double> origin = pathList.get(i);
+                Node<String, Double> destination = pathList.get(i + 1);
+                Edge<String, Double> edge = origin.hasEdgeTo(destination.getLabel());
+                String edgeWeight = String.format("%.3f", edge.getLabel());
+                System.out.printf("  to  %s [weight: %s]\n",
+                        pathList.get(i + 1).getLabel(), edgeWeight);
             }
+            System.out.print("Total weight: " + String.format("%.3f", path.getWeight()));
         }
     }
 }

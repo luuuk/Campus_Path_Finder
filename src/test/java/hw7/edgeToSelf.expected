@@ -1,0 +1,6 @@
+# This test checks the output of the path-finding algorithm when the start and end nodes are the same
+
+loaded graph test
+
+path from a to a:
+total cost: 0.000

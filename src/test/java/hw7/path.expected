@@ -1,0 +1,10 @@
+# This test is for graphs with a relatively long path
+
+loaded graph test
+
+the children of a in test are: b(0.500) c(0.333) e(1.000)
+
+path from a to f:
+a to c with weight 0.333
+c to f with weight 1.000
+total cost: 1.333

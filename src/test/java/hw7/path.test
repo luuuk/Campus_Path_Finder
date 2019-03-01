@@ -1,0 +1,7 @@
+# This test is for graphs with a relatively long path
+
+LoadGraph test test.tsv
+
+ListChildren test a
+
+FindPath test a f

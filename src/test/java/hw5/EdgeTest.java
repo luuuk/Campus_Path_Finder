@@ -1,17 +1,18 @@
 package hw5;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class EdgeTest {
 
-    private Node n1 = new Node("n1");
-    private Node n2 = new Node("n2");
-    private Node n3 = new Node("n3");
-    private Edge e1 = new Edge(n3, n3, "3 to 3");
-    private Edge e2 = new Edge(n1, n3, "1 to 3");
-    private Edge e3 = new Edge(n3, n1, "3 to 1");
-    private Edge e4 = new Edge(n3, n3, "3 to 3");
+    private Node<String, String> n1 = new Node<String, String>("n1");
+    private Node<String, String> n2 = new Node<String, String>("n2");
+    private Node<String, String> n3 = new Node<String, String>("n3");
+    private Edge<String, String> e1 = new Edge<String, String>(n3, n3, "3 to 3");
+    private Edge<String, String> e2 = new Edge<String, String>(n1, n3, "1 to 3");
+    private Edge<String, String> e3 = new Edge<String, String>(n3, n1, "3 to 1");
+    private Edge<String, String> e4 = new Edge<String, String>(n3, n3, "3 to 3");
 
     @Test
     public void testConstructor() {

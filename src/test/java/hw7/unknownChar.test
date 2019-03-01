@@ -1,0 +1,10 @@
+# This test checks the Graph's response to an unknown character
+
+LoadGraph test test.tsv
+
+FindPath test a k
+
+FindPath test k a
+
+FindPath test k k
+

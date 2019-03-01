@@ -10,13 +10,13 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 public class NodeTest {
-    private Node n1 = new Node("N1");
-    private Node n2 = new Node("N2");
-    private Node n3 = new Node("N3");
-    private Node n4 = new Node("N4");
-    private Node n5 = new Node("N5");
-    private Node n6 = new Node("N6");
-    private Node n7 = new Node("N7");
+    private Node<String, String> n1 = new Node<String, String>("N1");
+    private Node<String, String> n2 = new Node<String, String>("N2");
+    private Node<String, String> n3 = new Node<String, String>("N3");
+    private Node<String, String> n4 = new Node<String, String>("N4");
+    private Node<String, String> n5 = new Node<String, String>("N5");
+    private Node<String, String> n6 = new Node<String, String>("N6");
+    private Node<String, String> n7 = new Node<String, String>("N7");
 
     @Test
     public void testConstructorLabel() {
@@ -32,7 +32,7 @@ public class NodeTest {
     public void testAddEdge() {
         assertTrue(n1.addEdge(n2, "1 to 2"));
         assertNotNull(n1.hasEdgeTo("N2"));
-        assertFalse(n1.addEdge(n2, "1 to 2")); //messed up, does overriding equals not do enough? Need compareto?
+        assertFalse(n1.addEdge(n2, "1 to 2"));
         assertTrue(n1.addEdge(n1, "1 to 1"));
     }
 
@@ -40,8 +40,8 @@ public class NodeTest {
     public void testRemoveEdge() {
         n3.addEdge(n2, "3 to 2");
         assertNotNull(n3.hasEdgeTo("N2"));
-        assertTrue(n3.removeEdge("3 to 2"));
-        assertFalse(n3.removeEdge("3 to 2"));
+        assertTrue(n3.removeEdge("N2"));
+        assertFalse(n3.removeEdge("N2"));
     }
 
     @Test
@@ -77,17 +77,17 @@ public class NodeTest {
         n4.addEdge(n1, "4 to 1");
         n4.addEdge(n4, "4 to 4");
         Set<Edge> expectedEdges = new HashSet<>();
-        expectedEdges.add(new Edge(n4, n1, "4 to 1"));
-        expectedEdges.add(new Edge(n4, n4, "4 to 4"));
-        Set<Edge> edgeSet = n4.getEdges();
+        expectedEdges.add(new Edge<String, String>(n4, n1, "4 to 1"));
+        expectedEdges.add(new Edge<String, String>(n4, n4, "4 to 4"));
+        Set<Edge<String, String>> edgeSet = n4.getEdges();
         assertEquals(edgeSet, expectedEdges);
     }
 
     @Test
     public void testEquals() {
-        Node n1 = new Node("N1");
-        Node n2 = new Node("N1");
-        Node n3 = new Node("N3");
+        Node n1 = new Node<String, String>("N1");
+        Node n2 = new Node<String, String>("N1");
+        Node n3 = new Node<String, String>("N3");
         assertEquals(n1, n2);
         assertNotEquals(n2, n3);
     }

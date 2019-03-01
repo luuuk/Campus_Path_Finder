@@ -1,0 +1,13 @@
+# This test is checks the ability of a Node to list its children
+
+LoadGraph test test.tsv
+
+ListChildren test a
+
+AddEdge test a b 1.0
+
+ListChildren test a
+
+AddEdge test a b .1
+
+ListChildren test a

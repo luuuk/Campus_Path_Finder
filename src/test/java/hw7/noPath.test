@@ -1,0 +1,5 @@
+# This test checks the output of the path-finding algorithm when there is no path between nodes
+
+LoadGraph test test.tsv
+
+FindPath test a d

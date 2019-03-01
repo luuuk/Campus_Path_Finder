@@ -4,8 +4,11 @@ import java.util.*;
 
 /**
  * <b>Graph</b> is a class that represents a direct labeled multigraph of Nodes and Edges
+ *
+ * @param <NL> the type of labels of Nodes
+ * @param <EL> the type of labels of Edges
  */
-public class Graph {
+public class Graph<NL extends Comparable<NL>, EL extends Comparable<EL>> {
     /*
     Abstract Function: Each node in a given Graph, g, is stored in the Set<Node> nodes
 
@@ -15,7 +18,10 @@ public class Graph {
     */
 
     //Map of all Nodes in the Graph
-    private Map<String, Node> nodes;
+    private Map<NL, Node<NL, EL>> nodes;
+
+    //debug flag for expensive testing
+    private static final boolean DEBUG_FLAG = false;
 
     /**
      * Creates a new Graph with no nodes
@@ -32,9 +38,9 @@ public class Graph {
      *
      * @return a Set of Strings where each String is the label of a Node in this
      */
-    public Set<String> getNodeSet() {
-        Set<String> copyNodeNames = new HashSet<>();
-        for (String nodeLabel : nodes.keySet()) {
+    public Set<NL> getNodeSet() {
+        Set<NL> copyNodeNames = new HashSet<>();
+        for (NL nodeLabel : nodes.keySet()) {
             copyNodeNames.add(nodeLabel);
         }
         return copyNodeNames;
@@ -49,7 +55,7 @@ public class Graph {
      * @spec.modifies this
      * @spec.effects adds n to nodes
      */
-    public boolean addNode(Node n) {
+    public boolean addNode(Node<NL, EL> n) {
         if (!nodes.containsKey(n.getLabel())) {
             nodes.put(n.getLabel(), n);
             checkRep();
@@ -66,10 +72,10 @@ public class Graph {
      * @spec.modifies this
      * @spec.effects removes Node with given label and all Edges pointing to it from Nodes
      */
-    public boolean removeNode(String label) {
+    public boolean removeNode(NL label) {
         if (nodes.containsKey(label)) {
             nodes.remove(label);
-            for (String key : nodes.keySet()) {
+            for (NL key : nodes.keySet()) {
                 if (nodes.get(key).isTouching(label)) {
                     nodes.get(key).clearEdgesToNode(label);
                 }
@@ -86,7 +92,7 @@ public class Graph {
      * @return the desired Node with label "label", null if Node is not in Graph
      * @spec.requires label != null
      */
-    public Node getNode(String label) {
+    public Node<NL, EL> getNode(NL label) {
         return nodes.get(label);
     }
 
@@ -117,7 +123,7 @@ public class Graph {
      * @throws IllegalArgumentException if there is no Node in Graph with Label "nodeLabel"
      */
 
-    public Set<Edge> getEdges(String nodeLabel) {
+    public Set<Edge<NL, EL>> getEdges(NL nodeLabel) {
         if (!nodes.containsKey(nodeLabel)) {
             throw new IllegalArgumentException("Node with given label not in Graph");
         }
@@ -129,7 +135,7 @@ public class Graph {
      *
      * @return an Iterator on nodes
      */
-    public Iterator<Node> getIterator() {
+    public Iterator<Node<NL, EL>> getIterator() {
         return nodes.values().iterator();
     }
 
@@ -142,10 +148,12 @@ public class Graph {
      */
     private void checkRep() {
         assert (this.nodes != null) : "Nodes == null";
-        for (String key : nodes.keySet()) {
-            assert key.equals(nodes.get(key).getLabel()) : "Key is not label of Node";
-            for (Edge e : nodes.get(key).getEdges()) {
-                assert nodes.containsValue(e.getDest()) : "Edge points to Node not in Graph";
+        if (DEBUG_FLAG) {
+            for (NL key : nodes.keySet()) {
+                assert key.equals(nodes.get(key).getLabel()) : "Key is not label of Node";
+                for (Edge<NL, EL> e : nodes.get(key).getEdges()) {
+                    assert nodes.containsValue(e.getDest()) : "Edge points to Node not in Graph";
+                }
             }
         }
     }

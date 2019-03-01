@@ -1,11 +1,12 @@
 package hw5;
 
-import java.util.Comparator;
-
 /**
  * <b>Edge</b> is a class that represents a connection between two Nodes in a distinct labeled multigraph
+ *
+ * @param <NL> the type of labels of Nodes
+ * @param <EL> the type of labels of Edges
  */
-public class Edge {
+public class Edge<NL extends Comparable<NL>, EL extends Comparable<EL>> {
     /*
     Abstraction Fuction: Given two Nodes, an Edge is the link from one node to the other, represented by
                    a label, the Node the Edge originates from (from) and the Node the Edge leads to (to)
@@ -16,13 +17,13 @@ public class Edge {
     */
 
     // The Node that this leads to
-    private Node to;
+    private Node<NL, EL> to;
 
     // The node that this comes from
-    private Node from;
+    private Node<NL, EL> from;
 
     // String of data stored in this
-    private String label;
+    private EL label;
 
     /**
      * Creates new Edge linking Node n1 and Node n2 with given label
@@ -31,7 +32,7 @@ public class Edge {
      * @param n2  Node Edge links to
      * @param lab label of Edge
      */
-    public Edge(Node n1, Node n2, String lab) {
+    public Edge(Node<NL, EL> n1, Node<NL, EL> n2, EL lab) {
         to = n2;
         from = n1;
         label = lab;
@@ -43,7 +44,7 @@ public class Edge {
      *
      * @return label of this
      */
-    public String getLabel() {
+    public EL getLabel() {
         return label;
     }
 
@@ -52,8 +53,8 @@ public class Edge {
      *
      * @return a copy of from
      */
-    public Node getOrigin() {
-        Node copy = from;
+    public Node<NL, EL> getOrigin() {
+        Node<NL, EL> copy = from;
         return copy;
     }
 
@@ -62,8 +63,8 @@ public class Edge {
      *
      * @return a copy of to
      */
-    public Node getDest() {
-        Node copy = to;
+    public Node<NL, EL> getDest() {
+        Node<NL, EL> copy = to;
         return copy;
     }
 
@@ -76,11 +77,11 @@ public class Edge {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Edge && ((Edge) o).getLabel().equals(this.label)
-                && ((Edge) o).getDest().equals(this.to) && ((Edge) o).getOrigin().equals(this.from)) {
-            return true;
+        if (!(o instanceof Edge)) {
+            return false;
         }
-        return false;
+        Edge<?, ?> e = (Edge<?, ?>) o;
+        return label.equals(e.getLabel());
     }
 
     /**

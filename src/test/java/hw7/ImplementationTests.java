@@ -1,6 +1,5 @@
 package hw7;
 
-import org.junit.*;
 import org.junit.runner.*;
 import org.junit.runners.*;
 import org.junit.runners.Suite.*;
@@ -14,7 +13,7 @@ import org.junit.runners.Suite.*;
  */
 
 @RunWith(Suite.class)
-@SuiteClasses({ CheckAsserts.class /* list classes here */ })
+@SuiteClasses({ CheckAsserts.class, MarvelPaths2Test.class })
 
 public final class ImplementationTests
 {
