@@ -15,7 +15,7 @@ public class GraphTest {
     private Node<String, String> n3 = new Node<String, String>("N3");
 
     private Graph<String, String> graphWithNodes() {
-        Graph<String, String> gWithNodes = new Graph();
+        Graph<String, String> gWithNodes = new Graph<>();
         gWithNodes.addNode(new Node<String, String>("N4"));
         gWithNodes.addNode(new Node<String, String>("N5"));
         return gWithNodes;
