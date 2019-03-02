@@ -2,11 +2,7 @@ package hw7;
 
 import hw5.Graph;
 import hw6.MarvelParser;
-import hw6.MarvelPaths;
-import hw7.MarvelPaths2;
 import org.junit.*;
-
-import java.util.*;
 
 import static org.junit.Assert.*;
 
