@@ -24,6 +24,8 @@ dependencies {
   implementation group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
   implementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 
+  implementation 'com.opencsv:opencsv:4.3.2'
+
   compile 'org.ajoberstar:grgit:2.3.0'
 }
 
@@ -56,6 +58,7 @@ test {
   // exclude 'hw5/**'
   // exclude 'hw6/**'
   // exclude 'hw7/**'
+  // exclude 'hw8/**'
 }
 
 tasks.withType(Test) {
@@ -86,6 +89,13 @@ task copyHw7TestScripts(type: Copy) {
   into "${buildDir}/classes/java/test/hw7/"
 }
 test.dependsOn copyHw7TestScripts
+
+task copyHw8TestScripts(type: Copy) {
+  from "src/test/java/hw8"
+  include "*.test", "*.expected"
+  into "${buildDir}/classes/java/test/hw8/"
+}
+test.dependsOn copyHw8TestScripts
 
 ///
 /// Extra code quality checks
@@ -158,32 +168,8 @@ task runMarvel2(type:JavaExec) {
    classpath = sourceSets.main.runtimeClasspath
 }
 
-///
-/// Targets for course staff use
-///
-
-task javadocStaging(type: Javadoc) {
-  source = sourceSets.main.allJava
-  destinationDir = new File("/cse/web/courses/cse331/staff/staging/api")
+task runCampusPaths(type:JavaExec) {
+   main = "hw8/CampusPathsTextUI"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath
 }
-
-task javadocPublic(type: Javadoc) {
-  source = sourceSets.main.allJava
-  destinationDir = new File("/cse/web/courses/cse331/19wi/api")
-}
-
-sourceSets {
-  staffTest {
-    java {
-      srcDirs = ['src/staff_test/java']
-    }
-    compileClasspath += sourceSets.main.runtimeClasspath
-  }
-}
-
-task staffTest(type: Test) {
-  description = "Runs staff Tests"
-  testClassesDirs = sourceSets.staffTest.output.classesDirs
-  classpath += sourceSets.staffTest.runtimeClasspath
-}
-staffTest.dependsOn test
