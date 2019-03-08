@@ -10,7 +10,7 @@ import java.util.*;
  * @param <NL> the type of labels of Nodes
  * @param <EL> the type of labels of Edges
  */
-public class Path<NL extends Comparable<NL>, EL extends Comparable<EL>> {
+public class Path<NL, EL extends Comparable<EL>> {
 
     // Abstraction function:
     // Nodes in Path are stored as a List of Nodes in this.path.
@@ -27,7 +27,7 @@ public class Path<NL extends Comparable<NL>, EL extends Comparable<EL>> {
     private List<Node<NL, EL>> path;
 
     //weight of the path
-    private double weight;
+    private Double weight;
 
     private static final boolean DEBUG_FLAG = false;
 
@@ -106,7 +106,7 @@ public class Path<NL extends Comparable<NL>, EL extends Comparable<EL>> {
     public Path<NL, EL> addNewNode(Node<NL, EL> next, Double nextWeight) {
         List<Node<NL, EL>> currentPath = this.getPath();
         currentPath.add(next);
-        return new Path<>(currentPath, this.weight + nextWeight);
+        return new Path<NL, EL>(currentPath, this.weight + nextWeight);
     }
 
     /**
@@ -114,7 +114,7 @@ public class Path<NL extends Comparable<NL>, EL extends Comparable<EL>> {
      */
     private void checkRep() {
         assert path != null : "path is null";
-        assert weight >= 0 : "wight < 0";
+        assert weight >= 0 : "weight < 0";
         if(DEBUG_FLAG) {
             for (int i = 0; i < path.size() - 1; i++) {
                 assert path.get(i) != null : "a node in path is null";

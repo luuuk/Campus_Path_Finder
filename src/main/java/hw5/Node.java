@@ -9,7 +9,7 @@ import java.util.Set;
  * @param <NL> the type of labels of Nodes
  * @param <EL> the type of labels of Edges
  */
-public class Node<NL extends Comparable<NL>, EL extends Comparable<EL>> {
+public class Node<NL, EL extends Comparable<EL>> {
     /* Abstraction Fuction: For a given Node n, the data of n is stored in label
      *                       and n's Edges are stored as in Set<Edge>
      *

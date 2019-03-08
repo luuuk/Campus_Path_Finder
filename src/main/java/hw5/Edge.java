@@ -6,7 +6,7 @@ package hw5;
  * @param <NL> the type of labels of Nodes
  * @param <EL> the type of labels of Edges
  */
-public class Edge<NL extends Comparable<NL>, EL extends Comparable<EL>> {
+public class Edge<NL, EL extends Comparable<EL>> {
     /*
     Abstraction Fuction: Given two Nodes, an Edge is the link from one node to the other, represented by
                    a label, the Node the Edge originates from (from) and the Node the Edge leads to (to)

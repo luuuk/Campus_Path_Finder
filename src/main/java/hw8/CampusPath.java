@@ -3,6 +3,8 @@ package hw8;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 
+import java.util.Comparator;
+
 /**
  * Stores a single row from campus_paths.tsv. The names of the methods are
  * chosen to match the names in the first line of that file.

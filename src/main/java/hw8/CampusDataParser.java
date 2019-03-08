@@ -13,24 +13,40 @@ import com.opencsv.bean.CsvToBeanBuilder;
  */
 public class CampusDataParser {
 
-  /**
-   * Returns the rows from the given file, each of which should match the shape
-   * defined by CampusPath.
-   * @param fileName Path to the TSV file to read. (This should be a relative
-   *     path from the root directory.)
-   * @throws IOException if any I/O error occurs reading the file
-   * @return List of CampusPath objects, one describing each row.
-   */
-  public static List<CampusPath> parsePathData(String fileName)
-      throws IOException {
-    FileReader reader = new FileReader(fileName);
-    CsvToBean<CampusPath> csvToBean = new CsvToBeanBuilder<CampusPath>(reader)
-        .withType(CampusPath.class)
-        /* ... other options ... */
-        .build();
-    return csvToBean.parse();
-  }
+    /**
+     * Returns the rows from the given file, each of which should match the shape
+     * defined by CampusPath.
+     *
+     * @param fileName Path to the TSV file to read. (This should be a relative
+     *                 path from the root directory.)
+     * @return List of CampusPath objects, one describing each row.
+     * @throws IOException if any I/O error occurs reading the file
+     */
+    public static List<CampusPath> parsePathData(String fileName)
+            throws IOException {
+        FileReader reader = new FileReader(fileName);
+        CsvToBean<CampusPath> csvToBean = new CsvToBeanBuilder<CampusPath>(reader)
+                .withType(CampusPath.class)
+                .withSeparator('\t')
+                .build();
+        return csvToBean.parse();
+    }
 
-  // TODO: add similar code for parsing campus_buildings.tsv
-
+    /**
+     * Returns the rows from the given file, each of which should match the shape
+     * defined by CampusBuilding.
+     *
+     * @param fileName Path to the TSV file to read. (This should be a relative
+     *                 path from the root directory.)
+     * @return List of CampusBuilding objects, one describing each row.
+     * @throws IOException if any I/O error occurs reading the file
+     */
+    public static List<CampusBuilding> parseBuildingData(String fileName) throws IOException {
+        FileReader reader = new FileReader(fileName);
+        CsvToBean<CampusBuilding> csvToBean = new CsvToBeanBuilder<CampusBuilding>(reader)
+                .withType(CampusBuilding.class)
+                .withSeparator('\t')
+                .build();
+        return csvToBean.parse();
+    }
 }

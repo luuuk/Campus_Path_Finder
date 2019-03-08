@@ -1,5 +1,8 @@
 package hw5;
 
+import hw7.Path;
+import hw8.CampusPath;
+
 import java.util.*;
 
 /**
@@ -8,7 +11,7 @@ import java.util.*;
  * @param <NL> the type of labels of Nodes
  * @param <EL> the type of labels of Edges
  */
-public class Graph<NL extends Comparable<NL>, EL extends Comparable<EL>> {
+public class Graph<NL, EL extends Comparable<EL>> {
     /*
     Abstract Function: Each node in a given Graph, g, is stored in the Set<Node> nodes
 
@@ -113,6 +116,44 @@ public class Graph<NL extends Comparable<NL>, EL extends Comparable<EL>> {
      */
     public boolean isEmpty() {
         return nodes.isEmpty();
+    }
+
+    /**
+     * Finds the shortest path between 2 Nodes in the Graph
+     *
+     * @param origin the label of the Node the path originates from
+     * @param dest   the label of the Node the path ends at
+     * @return a list of Node labels representing the shortest path between the two Nodes
+     */
+    public Path<NL, EL> shortestPath(NL origin, NL dest) {
+        Queue<Path<NL, EL>> active = new PriorityQueue<>(new Comparator<>() {
+            @Override
+            public int compare(Path<NL, EL> o1, Path<NL, EL> o2) {
+                return o1.getWeight().compareTo(o2.getWeight());
+            }
+        });
+
+        Set<Node<NL, EL>> finished = new HashSet<>();
+        Node<NL, EL> start = this.getNode(origin);
+        active.add(new Path<>(start));
+        while (!active.isEmpty()) {
+            Path<NL, EL> minPath = active.remove();
+            Node<NL, EL> minDest = minPath.getDest();
+            if (minDest.getLabel().equals(dest)) {
+                return minPath;
+            }
+            if (finished.contains(minDest)) {
+                continue;
+            }
+            finished.add(minDest);
+            for (Edge<NL, EL> e : minDest.getEdges()) {
+                if (!finished.contains(e.getDest())) {
+                    Path<NL, EL> newPath = minPath.addNewNode(e.getDest(), (Double) e.getLabel());
+                    active.add(newPath);
+                }
+            }
+        }
+        return null;
     }
 
     /**
