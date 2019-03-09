@@ -59,7 +59,7 @@ public class CampusBuilding implements Comparable<CampusBuilding> {
      * Implements comparable interface for this using the short names of buildings
      *
      * @param o the CampusBuilding this is compared to
-     * @return > 0 if this > o, 0 if they are the same, < 0 otherwise
+     * @return greater than 0 if this is greater than o, 0 if they are the same, less than 0 otherwise
      */
     public int compareTo(CampusBuilding o) {
         return this.getShortName().compareTo(o.getShortName());
