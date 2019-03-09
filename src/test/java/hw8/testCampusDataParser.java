@@ -21,7 +21,7 @@ public class testCampusDataParser {
     public void getTestParseBuildingData() throws IOException {
         List<CampusBuilding> buildings = CampusDataParser.parseBuildingData("src/main/resources/hw8/campus_buildings_new.tsv");
         for (CampusBuilding b : buildings) {
-            System.out.println(b.toString());
+            //System.out.println(b.toString());
         }
         assert buildings.size() == 51;
     }

@@ -1,0 +1,15 @@
+Menu:
+r to find a route
+b to see a list of all buildings
+q to quit
+
+Enter an option ('m' to see the menu): # Verify that the program finds and correctly outputs the list of buildings
+Abbreviated name of starting building: Abbreviated name of ending building: Path from Paul G. Allen Center for Computer Science & Engineering to Electrical Engineering Building (North Entrance):
+Walk 18 feet N to (2261, 1707)
+Walk 90 feet W to (2218, 1696)
+Walk 134 feet W to (2157, 1675)
+Walk 40 feet S to (2160, 1695)
+Total distance: 282 feet
+
+Enter an option ('m' to see the menu):
+# All of your test scripts should end with q to terminate the program.

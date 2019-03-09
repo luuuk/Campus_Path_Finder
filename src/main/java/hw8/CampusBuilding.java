@@ -29,15 +29,6 @@ public class CampusBuilding implements Comparable<CampusBuilding> {
     }
 
     /**
-     * Sets the location of the building.
-     *
-     * @param newLoc the new coordinate location of the building
-     */
-    public void setLocation(Coordinate newLoc) {
-        this.location = newLoc;
-    }
-
-    /**
      * Returns the short name of the building
      *
      * @return the short name of the building

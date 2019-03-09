@@ -1,0 +1,27 @@
+Menu:
+r to find a route
+b to see a list of all buildings
+q to quit
+
+Enter an option ('m' to see the menu): # Verify that the program finds and correctly outputs the list of buildings
+Abbreviated name of starting building: Abbreviated name of ending building: #why would you put a comment here
+#seriously
+Path from Paul G. Allen Center for Computer Science & Engineering to Mary Gates Hall (North Entrance):
+Walk 18 feet N to (2261, 1707)
+Walk 90 feet W to (2218, 1696)
+Walk 134 feet W to (2157, 1675)
+Walk 140 feet NW to (2126, 1613)
+Walk 140 feet N to (2101, 1551)
+Walk 84 feet NW to (2083, 1514)
+Walk 26 feet NW to (2078, 1502)
+Walk 49 feet N to (2071, 1480)
+Walk 30 feet NW to (2062, 1468)
+Walk 37 feet SW to (2047, 1477)
+Walk 183 feet NW to (2008, 1398)
+Walk 97 feet SW to (1967, 1417)
+Walk 37 feet S to (1973, 1434)
+Total distance: 1065 feet
+
+Enter an option ('m' to see the menu): #Please stop doing this
+
+# All of your test scripts should end with q to terminate the program.

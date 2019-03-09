@@ -31,14 +31,6 @@ public class CampusPath {
     }
 
     /**
-     * Sets the starting point of the path segment.
-     * @param origin the new starting point of the path segment
-     */
-    public void setOrigin(Coordinate origin) {
-        this.origin = origin;
-    }
-
-    /**
      * Returns the ending point of the path segment.
      * @return the ending point of the path segment
      */
@@ -47,26 +39,10 @@ public class CampusPath {
     }
 
     /**
-     * Sets the ending point of the path segment.
-     * @param destination the new ending point of the path segment
-     */
-    public void setDestination(Coordinate destination) {
-        this.destination = destination;
-    }
-
-    /**
      * Returns the distance between the starting and ending points.
      * @return the distance of the path segment
      */
     public double getDistance() {
         return distance;
-    }
-
-    /**
-     * Sets the distance between the starting and ending points.
-     * @param distance the new distance of the path segment
-     */
-    public void setDistance(double distance) {
-        this.distance = distance;
     }
 }
