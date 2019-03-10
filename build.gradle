@@ -59,6 +59,7 @@ test {
   // exclude 'hw6/**'
   // exclude 'hw7/**'
   // exclude 'hw8/**'
+  exclude 'hw9/**'
 }
 
 tasks.withType(Test) {
@@ -170,6 +171,12 @@ task runMarvel2(type:JavaExec) {
 
 task runCampusPaths(type:JavaExec) {
    main = "hw8/CampusPathsTextUI"
+   standardInput = System.in
+   classpath = sourceSets.main.runtimeClasspath
+}
+
+task runGUI(type:JavaExec) {
+   main = "hw9/CampusPathsGUI"
    standardInput = System.in
    classpath = sourceSets.main.runtimeClasspath
 }
