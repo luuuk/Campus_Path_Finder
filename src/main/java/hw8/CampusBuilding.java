@@ -16,15 +16,15 @@ public class CampusBuilding implements Comparable<CampusBuilding> {
     @CsvBindByName
     private String longName;
 
-    @CsvCustomBindByName(converter = CoordinateConverter.class)
-    private Coordinate location;
+    @CsvCustomBindByName(converter = hw8.CoordinateConverter.class)
+    private hw8.Coordinate location;
 
     /**
      * Returns the coordinate location of the building.
      *
      * @return the location of the building represented by a coordinate point
      */
-    public Coordinate getLocation() {
+    public hw8.Coordinate getLocation() {
         return location;
     }
 
