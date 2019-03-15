@@ -78,7 +78,7 @@ public class MarvelPaths {
             }
             Set<Edge<String, String>> currentEdges = currentNode.getEdges();
             List<Edge<String, String>> sortedCurrentEdges = new ArrayList<>(currentEdges);
-            Collections.sort(sortedCurrentEdges, new Comparator<>() {
+            Collections.sort(sortedCurrentEdges, new Comparator<Edge<String, String>>() {
                 @Override
                 public int compare(Edge<String, String> o1, Edge<String, String> o2) {
                     int destComp = o1.getDest().getLabel().compareTo(

@@ -45,4 +45,28 @@ public class CampusPath {
     public double getDistance() {
         return distance;
     }
+
+    /**
+     * sets destination of this
+     * @param destination coordinate representing the destination
+     */
+    public void setDestination(Coordinate destination) {
+        this.destination = destination;
+    }
+
+    /**
+     * sets distance of this
+     * @param distance distance between origin and destination
+     */
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    /**
+     * sets origin of this
+     * @param origin coordinate representing the origin
+     */
+    public void setOrigin(Coordinate origin) {
+        this.origin = origin;
+    }
 }

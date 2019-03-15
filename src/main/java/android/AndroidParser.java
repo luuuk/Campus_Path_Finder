@@ -1,8 +1,6 @@
 package android;
 
-import hw8.CampusBuilding;
-import hw8.CampusPath;
-import hw8.Coordinate;
+import hw8.*;
 
 import java.io.*;
 import java.util.*;
@@ -24,11 +22,11 @@ public class AndroidParser {
      * @throws IOException if any I/O error occurs reading the file
      * @return List of CampusPath objects, one describing each row.
      */
-    public static List<CampusBuilding> parseBuildingData(InputStream blgsStream)
+    public static ArrayList<CampusBuilding> parseBuildingData(InputStream blgsStream)
             throws IOException {
         Scanner scanner = new Scanner(new InputStreamReader(blgsStream));
         scanner.nextLine();     // Skipping header line
-        List<CampusBuilding> buildings = new LinkedList<>();
+        ArrayList<CampusBuilding> buildings = new ArrayList<>();
         while(scanner.hasNextLine()) {
             String[] bits = scanner.nextLine().split("\t");
             String shortName = bits[0];
@@ -53,11 +51,11 @@ public class AndroidParser {
      * @throws IOException if any I/O error occurs reading the file
      * @return List of CampusPath objects, one describing each row.
      */
-    public static List<CampusPath> parsePathData(InputStream pathsStream)
+    public static ArrayList<CampusPath> parsePathData(InputStream pathsStream)
             throws IOException {
         Scanner scanner = new Scanner(new InputStreamReader(pathsStream));
         scanner.nextLine();     // Skipping header line
-        List<CampusPath> paths = new LinkedList<>();
+        ArrayList<CampusPath> paths = new ArrayList<>();
         while(scanner.hasNextLine()) {
             String[] bits = scanner.nextLine().split("\t");
             Coordinate origin = new Coordinate(Double.parseDouble(bits[0].split(",")[0]),

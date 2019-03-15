@@ -33,6 +33,7 @@ compileJava {
     // Uncomment the lines for the packages you want to exclude from your jar
     // exclude 'hw6/**'
     // exclude 'hw7/**'
+    exclude 'CampusPathsTestUI.java'
     options.encoding = 'UTF-8'
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }

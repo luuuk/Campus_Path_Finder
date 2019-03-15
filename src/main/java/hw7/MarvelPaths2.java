@@ -38,7 +38,7 @@ public class MarvelPaths2 {
         MarvelParser.parseData(fileName, characters, books);
         //add each new character as a Node
         for (String character : characters) {
-            g.addNode(new Node<>(character));
+            g.addNode(new Node<String, Double>(character));
         }
         for (String book : books.keySet()) {
             //For every book
@@ -78,12 +78,13 @@ public class MarvelPaths2 {
     public static Path<String, Double> shortestPath(
             Graph<String, Double> graph, String origin, String dest) {
 
-        Queue<Path<String, Double>> active = new PriorityQueue<>(new Comparator<>() {
-            @Override
-            public int compare(Path<String, Double> o1, Path<String, Double> o2) {
-                return o1.getWeight().compareTo(o2.getWeight());
-            }
-        });
+        Queue<Path<String, Double>> active = new PriorityQueue<Path<String, Double>>
+                (new Comparator<Path<String, Double>>() {
+                    @Override
+                    public int compare(Path<String, Double> o1, Path<String, Double> o2) {
+                        return o1.getWeight().compareTo(o2.getWeight());
+                    }
+                });
 
         Set<Node<String, Double>> finished = new HashSet<>();
         Node<String, Double> start = graph.getNode(origin);

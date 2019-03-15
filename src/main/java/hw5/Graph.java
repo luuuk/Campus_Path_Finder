@@ -32,7 +32,7 @@ public class Graph<NL, EL extends Comparable<EL>> {
      * @spec.effects sets nodes = to a new empty HashMap
      */
     public Graph() {
-        nodes = new HashMap<>();
+        nodes = new HashMap<NL, Node<NL, EL>>();
         checkRep();
     }
 
@@ -126,7 +126,7 @@ public class Graph<NL, EL extends Comparable<EL>> {
      * @return a list of Node labels representing the shortest path between the two Nodes
      */
     public Path<NL, EL> shortestPath(NL origin, NL dest) {
-        Queue<Path<NL, EL>> active = new PriorityQueue<>(new Comparator<>() {
+        Queue<Path<NL, EL>> active = new PriorityQueue<>(new Comparator<Path<NL, EL>>() {
             @Override
             public int compare(Path<NL, EL> o1, Path<NL, EL> o2) {
                 return o1.getWeight().compareTo(o2.getWeight());

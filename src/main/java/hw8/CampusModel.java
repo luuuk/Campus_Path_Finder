@@ -1,9 +1,11 @@
 package hw8;
 
+import android.AndroidParser;
 import hw5.*;
 import hw7.Path;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -22,7 +24,7 @@ public class CampusModel {
     /**
      * list of all buildings on campus
      **/
-    private List<CampusBuilding> buildings;
+    private ArrayList<CampusBuilding> buildings;
     /**
      * Graph of buildings and paths on campus
      **/
@@ -31,12 +33,37 @@ public class CampusModel {
     /**
      * list of all paths on campus
      */
-    private List<CampusPath> paths;
+    private ArrayList<CampusPath> paths;
 
     /**
      * Debug flag for more expensive testing
      */
-    private static final boolean DEBUG_FLAG = true;
+    private static final boolean DEBUG_FLAG = false;
+
+    /**
+     * Constructs a new CampusModel
+     *
+     * @param buildingStream input stream of buildings to be parsed
+     * @param pathStream input stream of paths to be parsed
+     * @throws IOException if data is not found
+     * @spec.modifies this
+     * @spec.effects populates internal models with data from tsv files
+     */
+    public CampusModel(InputStream pathStream, InputStream buildingStream) throws IOException {
+        paths = AndroidParser.parsePathData(pathStream);
+        buildings = AndroidParser.parseBuildingData(buildingStream);
+        g = new Graph<Coordinate, Double>();
+
+        //Don't have to add buildings because all path endpoints encapsulate all buildings
+        //Add coordinate locations at end of each path to graph, then add a connection between them
+        for (CampusPath p : paths) {
+            g.addNode(new Node<Coordinate, Double>(p.getDestination()));
+            //addNode has built in check to see if Node already is in graph
+            g.addNode(new Node<Coordinate, Double>(p.getOrigin()));
+            g.getNode(p.getOrigin()).addEdge(g.getNode(p.getDestination()), p.getDistance());
+        }
+        checkRep();
+    }
 
     /**
      * Constructs a new CampusModel
@@ -46,15 +73,16 @@ public class CampusModel {
      * @spec.effects populates internal models with data from tsv files
      */
     public CampusModel() throws IOException {
-        paths = CampusDataParser.parsePathData("src/main/resources/hw8/campus_paths.tsv");
-        buildings = CampusDataParser.parseBuildingData("src/main/resources/hw8/campus_buildings_new.tsv");
+        paths = (ArrayList<CampusPath>) CampusDataParser.parsePathData("src/main/resources/hw8/campus_paths.tsv");
+        buildings = (ArrayList<CampusBuilding>) CampusDataParser.parseBuildingData("src/main/resources/hw8/campus_buildings_new.tsv");
         g = new Graph<Coordinate, Double>();
 
         //Don't have to add buildings because all path endpoints encapsulate all buildings
         //Add coordinate locations at end of each path to graph, then add a connection between them
         for (CampusPath p : paths) {
-            g.addNode(new Node<>(p.getDestination()));
-            g.addNode(new Node<>(p.getOrigin()));       //addNode has built in check to see if Node already is in graph
+            g.addNode(new Node<Coordinate, Double>(p.getDestination()));
+            //addNode has built in check to see if Node already is in graph
+            g.addNode(new Node<Coordinate, Double>(p.getOrigin()));
             g.getNode(p.getOrigin()).addEdge(g.getNode(p.getDestination()), p.getDistance());
         }
         checkRep();
@@ -78,7 +106,7 @@ public class CampusModel {
      *
      * @return List of CampusBuildings in this
      */
-    public List<CampusBuilding> getBuildings() {
+    public ArrayList<CampusBuilding> getBuildings() {
         return buildings;
     }
 

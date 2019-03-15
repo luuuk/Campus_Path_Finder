@@ -64,4 +64,29 @@ public class CampusBuilding implements Comparable<CampusBuilding> {
     public int compareTo(CampusBuilding o) {
         return this.getShortName().compareTo(o.getShortName());
     }
+
+    /**
+     * sets short name of this
+     * @param name string representing name
+     */
+    public void setShortName(String name) {
+        shortName = name;
+    }
+
+    /**
+     * sets long name of this
+     * @param name string representing name
+     */
+    public void setLongName(String name) {
+        longName = name;
+    }
+
+    /**
+     * sets location of this
+     *
+     * @param c coordinate representing the origin
+     */
+    public void setLocation(Coordinate c) {
+        location = c;
+    }
 }
