@@ -1,0 +1,5 @@
+# This test tests the alphabetization functionality of the listNodes command
+
+LoadGraph test test.tsv
+
+ListNodes test

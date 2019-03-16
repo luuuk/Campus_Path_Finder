@@ -7,6 +7,7 @@ import java.util.*;
  * This class implements a testing driver which reads test scripts
  * from files for testing Graph.
  **/
+@SuppressWarnings("ALL")
 public class HW5TestDriver {
 
     public static void main(String args[]) {
@@ -183,7 +184,7 @@ public class HW5TestDriver {
     private void listNodes(String graphName) {
         Graph<String, String> g = graphs.get(graphName);
         output.print(graphName + " contains:");
-        Set<String> nodeSet = g.getNodeSet();
+        Set<String> nodeSet = new TreeSet<>(g.getNodeSet());
         for (String nodeName : nodeSet) {
             output.print(" " + nodeName);
         }

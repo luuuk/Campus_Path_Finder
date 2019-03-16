@@ -193,8 +193,8 @@ public class HW6TestDriver {
     private void listNodes(String graphName) {
         Graph<String, String> g = graphs.get(graphName);
         output.print(graphName + " contains:");
-        Set<String> nodeSet = g.getNodeSet();
-        for (String nodeName : nodeSet) {
+        Set<String> nodes = new TreeSet<>(g.getNodeSet());
+        for (String nodeName : nodes) {
             output.print(" " + nodeName);
         }
         output.println();

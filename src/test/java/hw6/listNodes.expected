@@ -1,0 +1,5 @@
+# This test tests the alphabetization functionality of the listNodes command
+
+loaded graph test
+
+test contains: a b c d
