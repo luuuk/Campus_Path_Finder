@@ -133,7 +133,7 @@ public class CampusModel {
             return "SW";
         } else if (-5 * Math.PI / 8 <= angle && -3 * Math.PI / 8 >= angle) {
             return "S";
-        } else if (-3 * Math.PI / 8 > angle && -1 * Math.PI / 8 < angle) {
+        } else if (-3 * Math.PI / 8 < angle && -1 * Math.PI / 8 > angle) {
             return "SE";
         } else {
             return "W";

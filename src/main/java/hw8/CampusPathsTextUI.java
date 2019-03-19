@@ -22,6 +22,9 @@ public class CampusPathsTextUI {
      *
      * @param args list of arguments passed in commandline. Ignored in this class
      */
+
+    //not an ADT
+
     public static void main(String[] args) {
         // Can be run using ./gradlew runCampusPaths
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));

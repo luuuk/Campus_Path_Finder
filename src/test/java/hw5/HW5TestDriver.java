@@ -7,7 +7,6 @@ import java.util.*;
  * This class implements a testing driver which reads test scripts
  * from files for testing Graph.
  **/
-@SuppressWarnings("ALL")
 public class HW5TestDriver {
 
     public static void main(String args[]) {
